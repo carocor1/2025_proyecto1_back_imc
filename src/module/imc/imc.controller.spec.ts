@@ -31,7 +31,9 @@ describe('ImcController', () => {
 
   it('should return IMC and category for valid input', async () => {
     const dto: CalcularImcDto = { altura: 1.75, peso: 70 };
-    jest.spyOn(service, 'calcularImc').mockReturnValue({ imc: 22.86, categoria: 'Normal' });
+    jest
+      .spyOn(service, 'calcularImc')
+      .mockReturnValue({ imc: 22.86, categoria: 'Normal' });
 
     const result = await controller.calcular(dto);
     expect(result).toEqual({ imc: 22.86, categoria: 'Normal' });
@@ -42,12 +44,34 @@ describe('ImcController', () => {
     const invalidDto: CalcularImcDto = { altura: -1, peso: 70 };
 
     // Aplicar ValidationPipe manualmente en la prueba
-    const validationPipe = new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true });
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
 
-    await expect(validationPipe.transform(invalidDto, { type: 'body', metatype: CalcularImcDto }))
-      .rejects.toThrow(BadRequestException);
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
 
     // Verificar que el servicio no se llama porque la validación falla antes
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should throw BadRequestException for non-numeric altura', async () => {
+    const dtoInvalido = { altura: 'esEscrita!!', peso: 70 }; // Altura no numérica
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(dtoInvalido, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
     expect(service.calcularImc).not.toHaveBeenCalled();
   });
 });

@@ -1,6 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { CalcularImcDto } from "./dto/calcular-imc-dto";
-
+import { Injectable } from '@nestjs/common';
+import { CalcularImcDto } from './dto/calcular-imc-dto';
 
 @Injectable()
 export class ImcService {
@@ -23,4 +22,3 @@ export class ImcService {
     return { imc: imcRedondeado, categoria };
   }
 }
-

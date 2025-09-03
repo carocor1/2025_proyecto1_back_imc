@@ -1,7 +1,6 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ImcService } from "./imc.service";
-import { CalcularImcDto } from "./dto/calcular-imc-dto";
-
+import { Test, TestingModule } from '@nestjs/testing';
+import { ImcService } from './imc.service';
+import { CalcularImcDto } from './dto/calcular-imc-dto';
 
 describe('ImcService', () => {
   let service: ImcService;
@@ -44,5 +43,29 @@ describe('ImcService', () => {
     const result = service.calcularImc(dto);
     expect(result.imc).toBeCloseTo(32.65, 2);
     expect(result.categoria).toBe('Obeso');
+  });
+
+  //75 / (1.8 * 1.8) ≈ 23.1481, redondeado a 23.15
+  it('debería redondear el IMC a dos decimales', () => {
+    const dto: CalcularImcDto = { peso: 75, altura: 1.8 };
+    const resultado = service.calcularImc(dto);
+    expect(resultado.imc).toBe(23.15);
+    expect(resultado.categoria).toBe('Normal');
+  });
+
+  // 53.45 / (1.7 * 1.7) ≈ 18.49
+  it('debería manejar correctamente valores límite para la categoría "Bajo peso"', () => {
+    const dto: CalcularImcDto = { peso: 53.45, altura: 1.7 };
+    const resultado = service.calcularImc(dto);
+    expect(resultado.imc).toBe(18.49);
+    expect(resultado.categoria).toBe('Bajo peso');
+  });
+
+  // 72.23 / (1.7 * 1.7) ≈ 24.99
+  it('debería manejar correctamente valores límite para la categoría "Normal"', () => {
+    const dto: CalcularImcDto = { peso: 72.23, altura: 1.7 };
+    const resultado = service.calcularImc(dto);
+    expect(resultado.imc).toBe(24.99);
+    expect(resultado.categoria).toBe('Normal');
   });
 });
