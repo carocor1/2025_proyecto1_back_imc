@@ -74,4 +74,102 @@ describe('ImcController', () => {
     ).rejects.toThrow(BadRequestException);
     expect(service.calcularImc).not.toHaveBeenCalled();
   });
+
+  it('should throw BadRequestException for altura below minimum (0.099)', async () => {
+    const invalidDto: CalcularImcDto = { altura: 0.099, peso: 70 };
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should throw BadRequestException for altura above maximum (3.001)', async () => {
+    const invalidDto: CalcularImcDto = { altura: 3.001, peso: 70 };
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should throw BadRequestException for peso below minimum (0.999)', async () => {
+    const invalidDto: CalcularImcDto = { altura: 1.75, peso: 0.999 };
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should throw BadRequestException for null altura or peso', async () => {
+    const invalidDto = { altura: null, peso: 70 }; // Null en altura
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should propagate error when service throws an exception', async () => {
+    const dto: CalcularImcDto = { altura: 1.75, peso: 70 };
+    const error = new Error('Unexpected error in service');
+    jest.spyOn(service, 'calcularImc').mockImplementation(() => {
+      throw error;
+    });
+    try {
+      await controller.calcular(dto);
+      fail('Expected controller.calcular to throw an error');
+    } catch (e) {
+      expect(e.message).toBe('Unexpected error in service');
+    }
+    expect(service.calcularImc).toHaveBeenCalledWith(dto);
+  });
+
+  it('should throw BadRequestException for altura zero', async () => {
+    const invalidDto: CalcularImcDto = { altura: 0, peso: 70 };
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
+    await expect(
+      validationPipe.transform(invalidDto, {
+        type: 'body',
+        metatype: CalcularImcDto,
+      }),
+    ).rejects.toThrow(BadRequestException);
+    expect(service.calcularImc).not.toHaveBeenCalled();
+  });
+
+  it('should handle valid input with minimum altura and maximum peso', async () => {
+    const dto: CalcularImcDto = { altura: 0.1, peso: 500 }; // IMC = 500 / (0.1 * 0.1) = 50000
+    jest.spyOn(service, 'calcularImc').mockReturnValue({ imc: 50000, categoria: 'Obeso' });
+    const result = await controller.calcular(dto);
+    expect(result).toEqual({ imc: 50000, categoria: 'Obeso' });
+    expect(service.calcularImc).toHaveBeenCalledWith(dto);
+  });
 });

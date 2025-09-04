@@ -61,3 +61,68 @@ When se calcula el IMC
 Then el IMC debería ser 24.99 
 And la categoría debería ser "Normal"
 
+Scenario: Calcular IMC con altura mínima permitida
+Given un usuario con altura 0.1 m y peso 1 kg
+When se calcula el IMC
+Then el IMC debería ser 100
+And la categoría debería ser "Obeso"
+
+Scenario: Calcular IMC con altura máxima permitida
+Given un usuario con altura 3 m y peso 80 kg
+When se calcula el IMC
+Then el IMC debería ser 8.89
+And la categoría debería ser "Bajo peso"
+
+Scenario: Calcular IMC con peso mínimo permitido
+Given un usuario con altura 1.75 m y peso 1 kg
+When se calcula el IMC
+Then el IMC debería ser 0.33
+And la categoría debería ser "Bajo peso"
+
+Scenario: Calcular IMC con peso máximo permitido
+Given un usuario con altura 1.75 m y peso 500 kg
+When se calcula el IMC
+Then el IMC debería ser 163.27
+And la categoría debería ser "Obeso"
+
+Scenario: Calcular IMC en límite superior de peso normal
+Given un usuario con altura 1.7 m y peso 72.23 kg
+When se calcula el IMC
+Then el IMC debería ser 24.99
+And la categoría debería ser "Normal"
+
+Scenario: Calcular IMC en límite inferior de sobrepeso
+Given un usuario con altura 1.7 m y peso 86.67 kg
+When se calcula el IMC
+Then el IMC debería ser 29.99
+And la categoría debería ser "Sobrepeso"
+
+Scenario: Calcular IMC en límite superior de bajo peso
+Given un usuario con altura 1.7 m y peso 53.51 kg
+When se calcula el IMC
+Then el IMC debería ser 18.52
+And la categoría debería ser "Normal"
+
+Scenario: Calcular IMC en límite inferior de sobrepeso
+Given un usuario con altura 1.7 m y peso 72.29 kg
+When se calcula el IMC
+Then el IMC debería ser 25.01
+And la categoría debería ser "Sobrepeso"
+
+Scenario: Calcular IMC en límite inferior de obesidad
+Given un usuario con altura 1.7 m y peso 86.73 kg
+When se calcula el IMC
+Then el IMC debería ser 30.01
+And la categoría debería ser "Obeso"
+
+Scenario: Calcular IMC con peso cero
+Given un usuario con altura 1.75 m y peso 0 kg
+When se calcula el IMC
+Then el IMC debería ser 0
+And la categoría debería ser "Bajo peso"
+
+Scenario: Calcular IMC con decimales largos en peso
+Given un usuario con altura 1.75 m y peso 65.123456789 kg
+When se calcula el IMC
+Then el IMC debería ser 21.26
+And la categoría debería ser "Normal"
