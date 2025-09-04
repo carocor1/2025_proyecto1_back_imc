@@ -864,86 +864,6 @@
   resolved "https://registry.npmjs.org/@microsoft/tsdoc/-/tsdoc-0.15.1.tgz"
   integrity sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==
 
-"@napi-rs/nice-android-arm-eabi@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-android-arm-eabi/-/nice-android-arm-eabi-1.1.1.tgz"
-  integrity sha512-kjirL3N6TnRPv5iuHw36wnucNqXAO46dzK9oPb0wj076R5Xm8PfUVA9nAFB5ZNMmfJQJVKACAPd/Z2KYMppthw==
-
-"@napi-rs/nice-android-arm64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-android-arm64/-/nice-android-arm64-1.1.1.tgz"
-  integrity sha512-blG0i7dXgbInN5urONoUCNf+DUEAavRffrO7fZSeoRMJc5qD+BJeNcpr54msPF6qfDD6kzs9AQJogZvT2KD5nw==
-
-"@napi-rs/nice-darwin-arm64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-darwin-arm64/-/nice-darwin-arm64-1.1.1.tgz"
-  integrity sha512-s/E7w45NaLqTGuOjC2p96pct4jRfo61xb9bU1unM/MJ/RFkKlJyJDx7OJI/O0ll/hrfpqKopuAFDV8yo0hfT7A==
-
-"@napi-rs/nice-darwin-x64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-darwin-x64/-/nice-darwin-x64-1.1.1.tgz"
-  integrity sha512-dGoEBnVpsdcC+oHHmW1LRK5eiyzLwdgNQq3BmZIav+9/5WTZwBYX7r5ZkQC07Nxd3KHOCkgbHSh4wPkH1N1LiQ==
-
-"@napi-rs/nice-freebsd-x64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-freebsd-x64/-/nice-freebsd-x64-1.1.1.tgz"
-  integrity sha512-kHv4kEHAylMYmlNwcQcDtXjklYp4FCf0b05E+0h6nDHsZ+F0bDe04U/tXNOqrx5CmIAth4vwfkjjUmp4c4JktQ==
-
-"@napi-rs/nice-linux-arm-gnueabihf@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-arm-gnueabihf/-/nice-linux-arm-gnueabihf-1.1.1.tgz"
-  integrity sha512-E1t7K0efyKXZDoZg1LzCOLxgolxV58HCkaEkEvIYQx12ht2pa8hoBo+4OB3qh7e+QiBlp1SRf+voWUZFxyhyqg==
-
-"@napi-rs/nice-linux-arm64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-arm64-gnu/-/nice-linux-arm64-gnu-1.1.1.tgz"
-  integrity sha512-CIKLA12DTIZlmTaaKhQP88R3Xao+gyJxNWEn04wZwC2wmRapNnxCUZkVwggInMJvtVElA+D4ZzOU5sX4jV+SmQ==
-
-"@napi-rs/nice-linux-arm64-musl@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-arm64-musl/-/nice-linux-arm64-musl-1.1.1.tgz"
-  integrity sha512-+2Rzdb3nTIYZ0YJF43qf2twhqOCkiSrHx2Pg6DJaCPYhhaxbLcdlV8hCRMHghQ+EtZQWGNcS2xF4KxBhSGeutg==
-
-"@napi-rs/nice-linux-ppc64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-ppc64-gnu/-/nice-linux-ppc64-gnu-1.1.1.tgz"
-  integrity sha512-4FS8oc0GeHpwvv4tKciKkw3Y4jKsL7FRhaOeiPei0X9T4Jd619wHNe4xCLmN2EMgZoeGg+Q7GY7BsvwKpL22Tg==
-
-"@napi-rs/nice-linux-riscv64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-riscv64-gnu/-/nice-linux-riscv64-gnu-1.1.1.tgz"
-  integrity sha512-HU0nw9uD4FO/oGCCk409tCi5IzIZpH2agE6nN4fqpwVlCn5BOq0MS1dXGjXaG17JaAvrlpV5ZeyZwSon10XOXw==
-
-"@napi-rs/nice-linux-s390x-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-s390x-gnu/-/nice-linux-s390x-gnu-1.1.1.tgz"
-  integrity sha512-2YqKJWWl24EwrX0DzCQgPLKQBxYDdBxOHot1KWEq7aY2uYeX+Uvtv4I8xFVVygJDgf6/92h9N3Y43WPx8+PAgQ==
-
-"@napi-rs/nice-linux-x64-gnu@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-x64-gnu/-/nice-linux-x64-gnu-1.1.1.tgz"
-  integrity sha512-/gaNz3R92t+dcrfCw/96pDopcmec7oCcAQ3l/M+Zxr82KT4DljD37CpgrnXV+pJC263JkW572pdbP3hP+KjcIg==
-
-"@napi-rs/nice-linux-x64-musl@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-linux-x64-musl/-/nice-linux-x64-musl-1.1.1.tgz"
-  integrity sha512-xScCGnyj/oppsNPMnevsBe3pvNaoK7FGvMjT35riz9YdhB2WtTG47ZlbxtOLpjeO9SqqQ2J2igCmz6IJOD5JYw==
-
-"@napi-rs/nice-openharmony-arm64@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-openharmony-arm64/-/nice-openharmony-arm64-1.1.1.tgz"
-  integrity sha512-6uJPRVwVCLDeoOaNyeiW0gp2kFIM4r7PL2MczdZQHkFi9gVlgm+Vn+V6nTWRcu856mJ2WjYJiumEajfSm7arPQ==
-
-"@napi-rs/nice-win32-arm64-msvc@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-win32-arm64-msvc/-/nice-win32-arm64-msvc-1.1.1.tgz"
-  integrity sha512-uoTb4eAvM5B2aj/z8j+Nv8OttPf2m+HVx3UjA5jcFxASvNhQriyCQF1OB1lHL43ZhW+VwZlgvjmP5qF3+59atA==
-
-"@napi-rs/nice-win32-ia32-msvc@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@napi-rs/nice-win32-ia32-msvc/-/nice-win32-ia32-msvc-1.1.1.tgz"
-  integrity sha512-CNQqlQT9MwuCsg1Vd/oKXiuH+TcsSPJmlAFc5frFyX/KkOh0UpBLEj7aoY656d5UKZQMQFP7vJNa1DNUNORvug==
-
 "@napi-rs/nice-win32-x64-msvc@1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@napi-rs/nice-win32-x64-msvc/-/nice-win32-x64-msvc-1.1.1.tgz"
@@ -1169,51 +1089,6 @@
     semver "^7.3.8"
     slash "3.0.0"
     source-map "^0.7.3"
-
-"@swc/core-darwin-arm64@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-darwin-arm64/-/core-darwin-arm64-1.13.4.tgz"
-  integrity sha512-CGbTu9dGBwgklUj+NAQAYyPjBuoHaNRWK4QXJRv1QNIkhtE27aY7QA9uEON14SODxsio3t8+Pjjl2Mzx1Pxf+g==
-
-"@swc/core-darwin-x64@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-darwin-x64/-/core-darwin-x64-1.13.4.tgz"
-  integrity sha512-qLFwYmLrqHNCf+JO9YLJT6IP/f9LfbXILTaqyfluFLW1GCfJyvUrSt3CWaL2lwwyT1EbBh6BVaAAecXiJIo3vg==
-
-"@swc/core-linux-arm-gnueabihf@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.13.4.tgz"
-  integrity sha512-y7SeNIA9em3+smNMpr781idKuNwJNAqewiotv+pIR5FpXdXXNjHWW+jORbqQYd61k6YirA5WQv+Af4UzqEX17g==
-
-"@swc/core-linux-arm64-gnu@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.13.4.tgz"
-  integrity sha512-u0c51VdzRmXaphLgghY9+B2Frzler6nIv+J788nqIh6I0ah3MmMW8LTJKZfdaJa3oFxzGNKXsJiaU2OFexNkug==
-
-"@swc/core-linux-arm64-musl@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.13.4.tgz"
-  integrity sha512-Z92GJ98x8yQHn4I/NPqwAQyHNkkMslrccNVgFcnY1msrb6iGSw5uFg2H2YpvQ5u2/Yt6CRpLIUVVh8SGg1+gFA==
-
-"@swc/core-linux-x64-gnu@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.13.4.tgz"
-  integrity sha512-rSUcxgpFF0L8Fk1CbUf946XCX1CRp6eaHfKqplqFNWCHv8HyqAtSFvgCHhT+bXru6Ca/p3sLC775SUeSWhsJ9w==
-
-"@swc/core-linux-x64-musl@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.13.4.tgz"
-  integrity sha512-qY77eFUvmdXNSmTW+I1fsz4enDuB0I2fE7gy6l9O4koSfjcCxkXw2X8x0lmKLm3FRiINS1XvZSg2G+q4NNQCRQ==
-
-"@swc/core-win32-arm64-msvc@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.13.4.tgz"
-  integrity sha512-xjPeDrOf6elCokxuyxwoskM00JJFQMTT2hTQZE24okjG3JiXzSFV+TmzYSp+LWNxPpnufnUUy/9Ee8+AcpslGw==
-
-"@swc/core-win32-ia32-msvc@1.13.4":
-  version "1.13.4"
-  resolved "https://registry.npmjs.org/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.13.4.tgz"
-  integrity sha512-Ta+Bblc9tE9X9vQlpa3r3+mVnHYdKn09QsZ6qQHvuXGKWSS99DiyxKTYX2vxwMuoTObR0BHvnhNbaGZSV1VwNA==
 
 "@swc/core-win32-x64-msvc@1.13.4":
   version "1.13.4"
@@ -3265,11 +3140,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.3.2:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
