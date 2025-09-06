@@ -12,13 +12,17 @@ And la categoría debería ser "<categoria_esperada>"
 
 Ejemplos:
   | peso   | altura | imc_esperado | categoria_esperada |
-  | 70     | 1.75   | 22.86        | Normal            |
-  | 50     | 1.75   | 16.33        | Bajo peso         |
-  | 80     | 1.75   | 26.12        | Sobrepeso         |
-  | 100    | 1.75   | 32.65        | Obeso             |
-  | 75     | 1.80   | 23.15        | Normal            |
-  | 53.45  | 1.70   | 18.49        | Bajo peso         |
-  | 72.23  | 1.70   | 24.99        | Normal            |
+  | 70     | 1.75   | 22.86        | Normal             |
+  | 50     | 1.75   | 16.33        | Bajo peso          |
+  | 80     | 1.75   | 26.12        | Sobrepeso          |
+  | 100    | 1.75   | 32.65        | Obeso              |
+  | 75     | 1.80   | 23.15        | Normal             |
+  | 53.45  | 1.70   | 18.49        | Bajo peso          |
+  | 72.23  | 1.70   | 24.99        | Normal             |
+  | -1     | 1.85   | Error        | Error              |
+  | 1500   | 1.85   | Error        | Error              |
+  | 87.5   | -5.3   | Error        | Error              |
+  | 87.5   | 15.5   | Error        | Error              |
 
 Pruebas Unitarias:
 
@@ -126,3 +130,27 @@ Given un usuario con altura 1.75 m y peso 65.123456789 kg
 When se calcula el IMC
 Then el IMC debería ser 21.26
 And la categoría debería ser "Normal"
+
+Scenario: Ingreso de peso negativo
+Given un usuario con altura 1.85 m y peso -1 kg
+When se calcula el IMC
+Then el sistema responde con un error de validación
+And no se realiza el cálculo del IMC
+
+Scenario: Ingreso de peso irrealmente alto
+Given un usuario con altura 1.85 m y peso 1500 kg
+When se calcula el IMC
+Then el sistema responde con un error de validación
+And no se realiza el cálculo del IMC
+
+Scenario: Ingreso de altura negativa
+Given un usuario con altura -5.3 m y peso 87.5 kg
+When se calcula el IMC
+Then el sistema responde con un error de validación
+And no se realiza el cálculo del IMC
+
+Scenario: Ingreso de altura irrealmente alta
+Given un usuario con altura 15.5 m y peso 87.5 kg
+When se calcula el IMC
+Then el sistema responde con un error de validación
+And no se realiza el cálculo del IMC
