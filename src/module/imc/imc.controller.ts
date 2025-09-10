@@ -10,11 +10,20 @@ export class ImcController {
   constructor(private readonly imcService: ImcService) {}
 
   @Post('calcular')
-  @ApiOperation({ summary: 'Calcular IMC', description: 'Calcula el índice de masa corporal y devuelve la categoría' })
-  @ApiResponse({ status: 201, description: 'IMC calculado correctamente', type: ImcResponseDTO })
+  @ApiOperation({
+    summary: 'Calcular IMC',
+    description: 'Calcula el índice de masa corporal y devuelve la categoría',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'IMC calculado correctamente',
+    type: ImcResponseDTO,
+  })
   @ApiResponse({ status: 400, description: 'Datos inválidos' })
   @Post('calcular')
-  calcular(@Body(ValidationPipe) data: CalcularImcDto): ImcResponseDTO {
+  calcular(
+    @Body(ValidationPipe) data: CalcularImcDto,
+  ): Promise<ImcResponseDTO> {
     return this.imcService.calcularImc(data);
   }
 }

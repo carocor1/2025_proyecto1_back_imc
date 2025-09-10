@@ -945,6 +945,15 @@
     tslib "2.8.1"
     uid "2.0.2"
 
+"@nestjs/config@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/@nestjs/config/-/config-4.0.2.tgz"
+  integrity sha512-McMW6EXtpc8+CwTUwFdg6h7dYcBUpH5iUILCclAsa+MbCEvC9ZKu4dCHRlJqALuhjLw97pbQu62l4+wRwGeZqA==
+  dependencies:
+    dotenv "16.4.7"
+    dotenv-expand "12.0.1"
+    lodash "4.17.21"
+
 "@nestjs/core@^10.0.0 || ^11.0.0", "@nestjs/core@^11.0.0", "@nestjs/core@^11.0.1":
   version "11.1.6"
   resolved "https://registry.npmjs.org/@nestjs/core/-/core-11.1.6.tgz"
@@ -2581,10 +2590,22 @@ diff@^4.0.1:
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
-dotenv@^16.4.7:
+dotenv-expand@12.0.1:
+  version "12.0.1"
+  resolved "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-12.0.1.tgz"
+  integrity sha512-LaKRbou8gt0RNID/9RoI+J2rvXsBRPMV7p+ElHlPhcSARbCPDYcYG2s1TIzAfWv4YSgyY5taidWzzs31lNV3yQ==
+  dependencies:
+    dotenv "^16.4.5"
+
+dotenv@^16.4.5, dotenv@^16.4.7:
   version "16.6.1"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.6.1.tgz"
   integrity sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==
+
+dotenv@16.4.7:
+  version "16.4.7"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.7.tgz"
+  integrity sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==
 
 dunder-proto@^1.0.1:
   version "1.0.1"
@@ -3426,6 +3447,13 @@ iconv-lite@^0.6.3, iconv-lite@0.6.3:
   version "0.6.3"
   resolved "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz"
   integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
+  dependencies:
+    safer-buffer ">= 2.1.2 < 3.0.0"
+
+iconv-lite@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.0.tgz"
+  integrity sha512-cf6L2Ds3h57VVmkZe+Pn+5APsT7FpqJtEhhieDCvrE2MK5Qk9MyffgQyuxQTm6BChfeZNtcOLHp9IcWRVcIcBQ==
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
@@ -4427,15 +4455,15 @@ mute-stream@^2.0.0:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-2.0.0.tgz"
   integrity sha512-WWdIxpyjEn+FhQJQQv9aQAYlHoNVdzIzUySNV1gHUPDSdZJ3yZn7pAAbQcV7B56Mvu881q9FZV+0Vx2xC44VWA==
 
-"mysql2@^2.2.5 || ^3.0.1", mysql2@^3.14.3:
-  version "3.14.3"
-  resolved "https://registry.npmjs.org/mysql2/-/mysql2-3.14.3.tgz"
-  integrity sha512-fD6MLV8XJ1KiNFIF0bS7Msl8eZyhlTDCDl75ajU5SJtpdx9ZPEACulJcqJWr1Y8OYyxsFc4j3+nflpmhxCU5aQ==
+"mysql2@^2.2.5 || ^3.0.1", mysql2@^3.14.5:
+  version "3.14.5"
+  resolved "https://registry.npmjs.org/mysql2/-/mysql2-3.14.5.tgz"
+  integrity sha512-40hDf8LPUsuuJ2hFq+UgOuPwt2IFLIRDvMv6ez9hKbXeYuZPxDDwiJW7KdknvOsQqKznaKczOT1kELgFkhDvFg==
   dependencies:
     aws-ssl-profiles "^1.1.1"
     denque "^2.1.0"
     generate-function "^2.3.1"
-    iconv-lite "^0.6.3"
+    iconv-lite "^0.7.0"
     long "^5.2.1"
     lru.min "^1.0.0"
     named-placeholders "^1.1.3"

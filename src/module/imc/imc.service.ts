@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { ImcResponseDTO } from './dto/respuesta-imc-dto';
+import { CreateImcHistorialDto } from 'src/imc-historial/dto/create-imc-historial.dto';
+import { ImcHistorialService } from 'src/imc-historial/imc-historial.service';
 
 @Injectable()
 export class ImcService {
-  calcularImc(data: CalcularImcDto): ImcResponseDTO {
+  constructor(private readonly imcHistorialService: ImcHistorialService) {}
+
+  //Para obtener el id del usuario a partir de la autenticación @UseGuards(AuthGuard('jwt'))
+  async calcularImc(data: CalcularImcDto): Promise<ImcResponseDTO> {
     const { altura, peso } = data;
     const imc = peso / (altura * altura);
     const imcRedondeado = Math.round(imc * 100) / 100; // Redondeo a 2 decimales
@@ -19,6 +24,15 @@ export class ImcService {
     } else {
       categoria = 'Obeso';
     }
+
+    const historialDto: CreateImcHistorialDto = {
+      altura: data.altura,
+      peso: data.peso,
+      imc: imcRedondeado,
+      categoria,
+    };
+
+    await this.imcHistorialService.create(historialDto);
 
     return { imc: imcRedondeado, categoria };
   }
