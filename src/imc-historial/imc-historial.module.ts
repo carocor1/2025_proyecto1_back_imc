@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImcHistorial } from './entities/imc-historial.entity';
 import { ImcHistorialRepository } from './repositories/historial.repository';
 import { ImcHistorialMapper } from './mappers/imc-historial.mapper';
-import { UsersModule } from 'src/users/users.module';
-import { AuthGuard } from 'src/middleware/auth.middleware';
-import { JwtModule } from 'src/jwt/jwt.module';
+import { UsersModule } from '../users/users.module';
+import { AuthGuard } from '../middleware/auth.middleware';
+import { JwtModule } from '../jwt/jwt.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ImcHistorial]), UsersModule, JwtModule],

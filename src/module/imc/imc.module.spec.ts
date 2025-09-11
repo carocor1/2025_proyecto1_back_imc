@@ -5,6 +5,9 @@ import { ImcService } from './imc.service';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
+import { ImcHistorial } from '../../imc-historial/entities/imc-historial.entity';
+import { User } from '../../users/entities/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 describe('ImcModule (integration)', () => {
   let app: INestApplication;
@@ -12,7 +15,10 @@ describe('ImcModule (integration)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ImcModule],
+      imports: [
+        TypeOrmModule.forFeature([User, ImcHistorial]),
+        ImcModule,
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();

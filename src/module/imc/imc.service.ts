@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { ImcResponseDTO } from './dto/respuesta-imc-dto';
-import { CreateImcHistorialDto } from 'src/imc-historial/dto/create-imc-historial.dto';
-import { ImcHistorialService } from 'src/imc-historial/imc-historial.service';
+import { CreateImcHistorialDto } from '../../imc-historial/dto/create-imc-historial.dto';
+import { ImcHistorialService } from '../../imc-historial/imc-historial.service';
 
 @Injectable()
 export class ImcService {

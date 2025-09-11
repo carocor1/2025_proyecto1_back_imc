@@ -5,9 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { User } from 'src/users/entities/user.entity';
-import { JwtService } from 'src/jwt/jwt.service';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../users/entities/user.entity';
+import { JwtService } from '../jwt/jwt.service';
+import { UsersService } from '../users/users.service';
 
 export interface RequestWithUser extends Request {
   user: User;
