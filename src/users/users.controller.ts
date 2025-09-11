@@ -11,23 +11,10 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 
-@ApiTags('users') // Categoría en Swagger
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-  /*
-  @Post()
-  @ApiOperation({ summary: 'Crear un nuevo usuario' })
-  @ApiResponse({
-    status: 201,
-    description: 'Usuario creado correctamente',
-    type: User,
-  })
-  @ApiBody({ type: CreateUserDto })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return await this.usersService.create(createUserDto);
-  }
-    */
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener un usuario por ID' })

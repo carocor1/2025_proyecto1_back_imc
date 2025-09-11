@@ -39,7 +39,9 @@ export class AuthService {
     };
   }
 
-  async register(createUserDto: CreateUserDto) {
+  async register(
+    createUserDto: CreateUserDto,
+  ): Promise<{ access_token: string }> {
     const existingUser = await this.userService.findByEmail(
       createUserDto.email,
     );
@@ -51,6 +53,30 @@ export class AuthService {
       ...createUserDto,
       contraseña: hashedPassword,
     });
-    return user;
+    const payload = { email: user.email };
+    return {
+      access_token: this.jwtService.generateToken(payload, 'auth'),
+    };
+  }
+
+  //refactorizar
+  async refresh(refreshToken: string): Promise<LoginResponseDto> {
+    const tokens = this.jwtService.refreshToken(refreshToken);
+    const payload = this.jwtService.getPayload(refreshToken, 'refresh') as {
+      email: string;
+    };
+    const user = await this.userService.findByEmail(payload.email);
+    if (!user) {
+      throw new UnauthorizedException('Usuario no encontrado');
+    }
+    return {
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken || refreshToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        nombre: user.nombre,
+      },
+    };
   }
 }
