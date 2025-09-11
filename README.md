@@ -1,99 +1,181 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Proyecto IMC
+============
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es una aplicación para calcular el Índice de Masa Corporal (IMC). Consta de un frontend desarrollado en React con TypeScript y Vite, y un backend en Node.js con Express. El frontend está desplegado en Vercel, y el backend en Render. Elegimos estas plataformas por su accesibilidad, facilidad de uso y planes gratuitos, que nos permitieron implementar el proyecto sin costos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Por qué usamos Render y Vercel
+------------------------------
 
-## Description
+*   **Render**: Proporciona un entorno confiable y escalable para el backend, con soporte nativo para Node.js y una configuración sencilla de variables de entorno.
+    
+*   **Vercel**: Está optimizado para aplicaciones frontend, especialmente con React y Vite, y ofrece integración continua con GitHub para actualizaciones automáticas.
+    
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Organización del proyecto
+-------------------------
 
-## Project setup
+Para facilitar la modularidad, trazabilidad y mantenimiento, el proyecto se divide en dos repositorios en GitHub:
 
-```bash
-$ yarn install
-```
+*   **Backend**: Repositorio 2025\_proyecto1\_back\_imc. Incluye el código de la API, scripts de ejecución, configuración de dependencias (package.json), documentación de endpoints y configuraciones específicas.
+    
+*   **Frontend**: Repositorio 2025\_proyecto1\_front\_imc. Contiene el código de la aplicación cliente, scripts de construcción y ejecución para Vite, y configuraciones del framework (vite.config.js).
+    
 
-## Compile and run the project
+Esta separación permite gestionar versiones de forma independiente, simplifica la colaboración y agiliza las actualizaciones.
 
-```bash
-# development
-$ yarn run start
+Cómo desplegar la aplicación
+----------------------------
 
-# watch mode
-$ yarn run start:dev
+### Backend
 
-# production mode
-$ yarn run start:prod
-```
+*   **Tecnologías**: Node.js, Express
+    
+*   **Plataforma**: Render
+    
+*   **Repositorio**: 2025\_proyecto1\_back\_imc
+    
 
-## Run tests
+**Pasos para el despliegue en Render:**
 
-```bash
-# unit tests
-$ yarn run test
+1.  Creá una cuenta en [Render](https://render.com/).
+    
+2.  Creá un nuevo proyecto y vinculá el repositorio 2025\_proyecto1\_back\_imc desde GitHub.
+    
+3.  Configurá las variables de entorno necesarias, como PORT.
+    
+4.  Definí los comandos de construcción y arranque:
+    
+    *   npm installEste comando instala las dependencias listadas en package.json y crea la carpeta node\_modules.
+        
+    *   npm run start:prodEste comando ejecuta la versión optimizada de la aplicación para producción.
+        
+5.  Render genera una URL pública para el backend: https://proyecto-1-backend.onrender.com.
+    
+6.  Verificá el funcionamiento de la API con herramientas como Postman, probando endpoints como https://proyecto-1-backend.onrender.com/imc/calcular.
+    
 
-# e2e tests
-$ yarn run test:e2e
+### Frontend
 
-# test coverage
-$ yarn run test:cov
-```
+*   **Tecnologías**: React, TypeScript, Vite
+    
+*   **Plataforma**: Vercel
+    
+*   **Repositorio**: 2025\_proyecto1\_front\_imc
+    
 
-## Deployment
+**Pasos para el despliegue en Vercel:**
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1.  Creá una cuenta en [Vercel](https://vercel.com/).
+    
+2.  Importá el repositorio 2025\_proyecto1\_front\_imc desde GitHub.
+    
+3.  Definí el nombre del proyecto y seleccioná la rama principal (main).
+    
+4.  Vercel detecta automáticamente el framework (Vite) y usa las configuraciones predefinidas:
+    
+    *   Comando de build: npm run build
+        
+    *   Carpeta de salida: dist
+        
+5.  Hacé clic en "Deploy" para completar el proceso.
+    
+6.  Cada git push a la rama principal actualizará el despliegue automáticamente.
+    
+7.  Actualizá la variable API\_URL en el frontend (en .env o en el código) para que apunte a la URL del backend: https://proyecto-1-backend.onrender.com/imc/calcular.
+    
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Cómo trabajar con Git
+---------------------
 
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
+1.  Hacé los cambios en tu máquina local.
+    
+2.  git add .git commit -m "Descripción de los cambios"
+    
+3.  git push origin main
+    
+4.  Render y Vercel actualizarán los despliegues automáticamente con cada push.
+    
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Problemas comunes y cómo solucionarlos
+--------------------------------------
 
-## Resources
+### 1\. Los cambios en el frontend no se reflejan en el despliegue
 
-Check out a few resources that may come in handy when working with NestJS:
+*   **Qué pasó**: El repositorio conectado a Vercel no es el correcto o está vinculado a un fork.
+    
+*   **Solución**: Verificá que Vercel esté conectado al repositorio 2025\_proyecto1\_front\_imc de tu cuenta de GitHub. Si usaste un fork, cloná el proyecto a un repositorio personal y reconectalo en Vercel.
+    
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 2\. El frontend no se conecta al backend
 
-## Support
+*   **Qué pasó**: La URL del backend en el frontend está mal configurada, por ejemplo, apunta a localhost o a una URL antigua.
+    
+*   **Solución**:
+    
+    *   Confirmá la URL del backend en Render: https://proyecto-1-backend.onrender.com/imc/calcular.
+        
+    *   Actualizá la variable API\_URL en el archivo .env del frontend o en el código.
+        
+    *   Volvé a desplegar el frontend en Vercel con git push.
+        
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 3\. Error en el build del backend en Render
 
-## Stay in touch
+*   **Qué pasó**: Las dependencias no se instalaron correctamente o el package.json tiene errores.
+    
+*   **Solución**:
+    
+    *   Revisá que el archivo package.json esté completo y las dependencias sean correctas.
+        
+    *   Verificá que el comando npm install no tenga errores en los logs de Render.
+        
+    *   Si el problema persiste, probá eliminar la carpeta node\_modules y el archivo package-lock.json en local, ejecutá npm install de nuevo y subí los cambios.
+        
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 4\. La API no responde en el endpoint esperado
 
-## License
+*   **Qué pasó**: El endpoint está mal configurado o la URL pública de Render no está disponible.
+    
+*   **Solución**:
+    
+    *   Probá el endpoint en Postman (por ejemplo, https://proyecto-1-backend.onrender.com/imc/calcular).
+        
+    *   Asegurate de que el servicio en Render esté activo y no en modo "dormido" (puede pasar en el plan gratuito).
+        
+    *   Revisá los logs en Render para detectar errores en el servidor.
+        
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 5\. Limitaciones del plan gratuito de Vercel o Render
+
+*   **Qué pasó**: Los planes gratuitos tienen restricciones, como repositorios propios en Vercel o tiempos de inactividad en Render.
+    
+*   **Solución**:
+    
+    *   Para Vercel: Asegurate de usar un repositorio propio (2025\_proyecto1\_front\_imc) y no un fork.
+        
+    *   Para Render: Si el backend se "duerme", accedé a la URL pública para reactivarlo o considerá un plan pago para evitar suspensiones.
+        
+
+Consejos
+--------
+
+*   Usá archivos .env para manejar URLs y datos sensibles.
+    
+*   Probá la aplicación en local antes de subir cambios.
+    
+*   Verificá que las variables de entorno estén bien configuradas en Render y Vercel.
+    
+*   Mantené los repositorios organizados con commits claros y descriptivos.
+    
+
+Autores
+--------
+[Beccereca, Martín](martinbeccereca@gmail.com)
+
+[Corazza, Carolina Paula](carolinapaulacorazza@gmail.com)
+
+[De Miguel, Alejo José](alejodm12345@gmail.com)
+
+[Ramello, Belén](belenramello@gmail.com)
+
+[Saby, Juan Pablo](sabyjuanpablo2004@gmail.com)
