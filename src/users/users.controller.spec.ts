@@ -40,14 +40,14 @@ describe('UsersController', () => {
   });
   
   it('findOne should call service and return user', async () => {
-    const result = await controller.findOne('1');
+    const result = await controller.findOne(1);
     expect(service.findOne).toHaveBeenCalledWith(1);
     expect(result).toEqual(userMock);
   });
 
   it('update should call service and return user', async () => {
     const dto = { nombre: "Nuevo" };
-    const result = await controller.update('1', dto as any);
+    const result = await controller.update(1, dto as any);
     expect(service.update).toHaveBeenCalledWith(1, dto);
     expect(result).toEqual(userMock);
   });
