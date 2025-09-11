@@ -22,18 +22,23 @@ export class ImcHistorialService {
     );
   }
 
-  async findAll(): Promise<ImcHistorialResponseDTO[]> {
+  async findAll(usuarioId: number): Promise<ImcHistorialResponseDTO[]> {
     return this.imcHistorialMapper.toResponseDtos(
-      await this.imcHistorialRepository.findAll(),
+      await this.imcHistorialRepository.findAllByUser(usuarioId),
     );
   }
 
   async findAllPaginated(
     paginationMarcaDto: PaginationImcHistorialDto,
+    usuarioId: number,
   ): Promise<PaginationHistorialResponseDTO> {
     const { limit = 5, page = 1 } = paginationMarcaDto;
     return this.imcHistorialMapper.toResponsePaginationDto(
-      await this.imcHistorialRepository.findAllPaginated(page, limit),
+      await this.imcHistorialRepository.findAllPaginatedByUser(
+        page,
+        limit,
+        usuarioId,
+      ),
     );
   }
 }

@@ -8,19 +8,23 @@ import { LoginResponseDto } from 'src/users/dto/login-response.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
-@Post('login')
+  constructor(private authService: AuthService) {}
+  @Post('login')
   @ApiOperation({ summary: 'Iniciar sesión de usuario' })
   @ApiResponse({ status: 200, description: 'Login exitoso', type: User })
   @ApiResponse({ status: 401, description: 'Credenciales inválidas' })
   @ApiBody({ type: LoginDto })
-  async login(@Body() loginDto: LoginDto ): Promise<LoginResponseDto> {
+  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
     return await this.authService.login(loginDto);
   }
 
   @Post('register')
   @ApiOperation({ summary: 'Registrar un nuevo usuario' })
-  @ApiResponse({ status: 201, description: 'Usuario registrado correctamente', type: User })
+  @ApiResponse({
+    status: 201,
+    description: 'Usuario registrado correctamente',
+    type: User,
+  })
   @ApiResponse({ status: 400, description: 'El usuario ya existe' })
   @ApiBody({ type: CreateUserDto })
   async register(@Body() createUserDto: CreateUserDto): Promise<User> {

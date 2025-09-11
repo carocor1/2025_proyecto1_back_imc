@@ -1,10 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsuarioRepository } from './repositories/usuario.repository';
-import { LoginDto } from './dto/login.dto';
 import { User } from './entities/user.entity';
-
 
 @Injectable()
 export class UsersService {
@@ -27,5 +25,4 @@ export class UsersService {
   async findByEmail(email: string): Promise<User | null> {
     return await this.usersRepository.findByEmail(email);
   }
-
 }

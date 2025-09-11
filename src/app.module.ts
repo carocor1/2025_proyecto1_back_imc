@@ -25,18 +25,29 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User,ImcHistorial],
+      entities: [User, ImcHistorial],
       synchronize: true,
       ssl: {
-        ca: fs.readFileSync(path.resolve(__dirname, '..', '..', '2025_proyecto1_back_imc', 'src', 'config', 'ca.pem')),
+        ca: fs.readFileSync(
+          path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '2025_proyecto1_back_imc',
+            'src',
+            'config',
+            'ca.pem',
+          ),
+        ),
         rejectUnauthorized: true, // Requerido para verificar el certificado
       },
+      timezone: '+03:00', //para que la app interprete las fechas en horario argentino.
     }),
     ImcModule,
     ImcHistorialModule,
     UsersModule,
     JwtModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

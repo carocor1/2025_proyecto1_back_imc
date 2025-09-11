@@ -23,10 +23,10 @@ export class ImcHistorial {
 
   @Column()
   categoria: string;
-  
+
   @ManyToOne(() => User, (user) => user.imcHistorial)
   usuario: User;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn()
   fechaHora: Date;
 }
