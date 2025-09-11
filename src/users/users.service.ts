@@ -1,26 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UsuarioRepository } from './repositories/usuario.repository';
+import { LoginDto } from './dto/login.dto';
+import { User } from './entities/user.entity';
+
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(private usersRepository: UsuarioRepository) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    return await this.usersRepository.create(createUserDto);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findOne(id: number): Promise<User | null> {
+    return await this.usersRepository.findOne(id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
+    const body = { ...updateUserDto };
+    await this.usersRepository.update(id, body);
+    return await this.usersRepository.findOne(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.usersRepository.findByEmail(email);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }

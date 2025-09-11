@@ -1,34 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginDto } from './dto/login.dto';
+import { User } from './entities/user.entity';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
 
+@ApiTags('users') // Categoría en Swagger
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @ApiOperation({ summary: 'Crear un nuevo usuario' })
+  @ApiResponse({ status: 201, description: 'Usuario creado correctamente', type: User })
+  @ApiBody({ type: CreateUserDto })
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return await this.usersService.create(createUserDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @ApiOperation({ summary: 'Obtener un usuario por ID' })
+  @ApiResponse({ status: 200, description: 'Usuario encontrado', type: User })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
+  async findOne(@Param('id') id: string): Promise<User | null> {
+    return await this.usersService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @ApiOperation({ summary: 'Actualizar un usuario por ID' })
+  @ApiResponse({ status: 200, description: 'Usuario actualizado', type: User })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User | null> {
+    return await this.usersService.update(+id, updateUserDto);
   }
 }
