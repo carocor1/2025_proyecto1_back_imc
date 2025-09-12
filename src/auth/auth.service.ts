@@ -7,9 +7,9 @@ import { JwtService } from '../jwt/jwt.service';
 import { LoginDto } from '../users/dto/login.dto';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt'; // Importa bcrypt
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { LoginResponseDto } from 'src/users/dto/login-response.dto';
-import { User } from 'src/users/entities/user.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { LoginResponseDto } from '../users/dto/login-response.dto';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
