@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
-import { ImcHistorial } from 'src/imc-historial/entities/imc-historial.entity';
+import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 
 const userMock: User = {
   id: 1,

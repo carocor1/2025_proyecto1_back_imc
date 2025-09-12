@@ -9,7 +9,7 @@ import {
   ApiBody,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { AuthGuard, RequestWithUser } from 'src/middleware/auth.middleware';
+import { AuthGuard, RequestWithUser } from '../middleware/auth.middleware';
 
 @ApiTags('users')
 @Controller('users')

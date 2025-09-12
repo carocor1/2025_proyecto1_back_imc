@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
-import { UsuarioRepository } from './repositories/usuario.repository';
+import { UsuarioRepository } from './repositories/users.repository';
 import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 import { User } from './entities/user.entity';
 
