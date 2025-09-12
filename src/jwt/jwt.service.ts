@@ -7,7 +7,7 @@ export class JwtService {
   constructor(private readonly configService: ConfigService) {}
 
   generateToken(
-    payload: { email: string; sub: number },
+    payload: { email: string; sub: string },
     type: 'refresh' | 'auth' = 'auth', //Es refresh o auth, y si es indefinido asume que es auth
   ): string {
     const { secret, expiresIn } = this.getJwtConfig(type);
@@ -17,7 +17,8 @@ export class JwtService {
   refreshToken(refreshToken: string) {
     try {
       const { secret } = this.getJwtConfig('refresh');
-      const payload = verify(refreshToken, secret) as Payload;
+      const untypedPayload = verify(refreshToken, secret) as unknown;
+      const payload = untypedPayload as Payload;
       const currentTime = Math.floor(Date.now() / 1000);
       const timeToExpire = (payload.exp - currentTime) / 60;
 

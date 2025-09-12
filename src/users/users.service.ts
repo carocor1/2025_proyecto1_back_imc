@@ -70,9 +70,7 @@ export class UsersService {
     return await this.findOne(id);
   }
 
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.usuarioRepository.findByEmail(email);
-    if (!user) throw new NotFoundException('Usuario con email no encontrado');
-    return user;
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.usuarioRepository.findByEmail(email);
   }
 }

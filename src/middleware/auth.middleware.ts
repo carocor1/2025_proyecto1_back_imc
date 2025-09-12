@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
           'El payload del token no contiene el ID del usuario',
         );
       }
-      const user = await this.userService.findOne(payload.sub);
+      const user = await this.userService.findOne(Number(payload.sub));
       if (!user) {
         throw new UnauthorizedException('Usuario no encontrado');
       }
