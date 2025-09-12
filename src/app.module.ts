@@ -10,8 +10,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { User } from './users/entities/user.entity';
 import { ImcHistorial } from './imc-historial/entities/imc-historial.entity';
-import { AuthService } from './auth/auth.service';
-import { AuthController } from './auth/auth.controller';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 
