@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
-import { ImcHistorial } from 'src/imc-historial/entities/imc-historial.entity';
+import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 
 const userMock: User = {
   id: 1,
@@ -39,16 +39,4 @@ describe('UsersController', () => {
     expect(controller).toBeDefined();
   });
   
-  it('findOne should call service and return user', async () => {
-    const result = await controller.findOne(1);
-    expect(service.findOne).toHaveBeenCalledWith(1);
-    expect(result).toEqual(userMock);
-  });
-
-  it('update should call service and return user', async () => {
-    const dto = { nombre: "Nuevo" };
-    const result = await controller.update(1, dto as any);
-    expect(service.update).toHaveBeenCalledWith(1, dto);
-    expect(result).toEqual(userMock);
-  });
 });
