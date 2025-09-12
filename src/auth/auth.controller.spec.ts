@@ -5,16 +5,16 @@ import { AuthService } from './auth.service';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
-
+  // Mocks de datos - pueden ser ajustados según la estructura real
   const loginDto = { email: 'test@mail.com', contraseña: '123456' };
   const createUserDto = { email: 'test@mail.com', contraseña: '123456', nombre: 'Test' };
   const loginResponse = {
-    accessToken: 'access-token',
+    accessToken: 'access-token', 
     refreshToken: 'refresh-token',
     user: { id: 1, email: 'test@mail.com', nombre: 'Test' },
   };
   const registerResponse = { access_token: 'access-token' };
-
+  
   beforeEach(async () => {
     const serviceMock = {
       login: jest.fn().mockResolvedValue(loginResponse),
@@ -30,7 +30,7 @@ describe('AuthController', () => {
     controller = module.get<AuthController>(AuthController);
     service = module.get<AuthService>(AuthService);
   });
-
+  // Pruebas
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });

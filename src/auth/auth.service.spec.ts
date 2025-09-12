@@ -11,7 +11,7 @@ describe('AuthService', () => {
   let service: AuthService;
   let usersService: jest.Mocked<UsersService>;
   let jwtService: jest.Mocked<JwtService>;
-
+  // Mocks de datos - pueden ser ajustados según la estructura real
   const userMock = {
     id: 1,
     email: 'test@mail.com',
@@ -19,7 +19,7 @@ describe('AuthService', () => {
     contraseña: 'hashedPassword',
     imcHistorial: [],
   };
-
+  // Configuración del módulo de pruebas
   beforeEach(async () => {
     const usersServiceMock: jest.Mocked<Partial<UsersService>> = {
       findByEmail: jest.fn(),
@@ -31,10 +31,10 @@ describe('AuthService', () => {
       refreshToken: jest.fn().mockReturnValue({ accessToken: 'new-access', refreshToken: 'new-refresh' }),
       getPayload: jest.fn().mockReturnValue({ sub: '1', email: 'test@mail.com' }),
     };
-
+    // Reset de mocks de bcrypt - importante para evitar interferencias entre tests
     (bcrypt.compareSync as jest.Mock).mockReset();
     (bcrypt.hashSync as jest.Mock).mockReset();
-
+    
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -47,7 +47,7 @@ describe('AuthService', () => {
     usersService = module.get(UsersService);
     jwtService = module.get(JwtService);
   });
-
+  // Pruebas
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
