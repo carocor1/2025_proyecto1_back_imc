@@ -7,9 +7,9 @@ import { JwtService } from '../jwt/jwt.service';
 import { LoginDto } from '../users/dto/login.dto';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt'; // Importa bcrypt
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginResponseDto } from '../users/dto/login-response.dto';
-import { User } from '../users/entities/user.entity';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { LoginResponseDto } from 'src/users/dto/login-response.dto';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +19,8 @@ export class AuthService {
   ) {}
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user = await this.userService.findByEmail(loginDto.email);
+    if (!user)
+      throw new UnauthorizedException('Usuario con email no encontrado');
     const isPasswordValid = bcrypt.compareSync(
       loginDto.contraseña,
       user.contraseña,
@@ -26,7 +28,7 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Contraseña incorrecta');
 
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: String(user.id) };
 
     return {
       accessToken: this.jwtService.generateToken(payload, 'auth'),
@@ -53,7 +55,7 @@ export class AuthService {
       ...createUserDto,
       contraseña: hashedPassword,
     });
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: String(user.id) };
     return {
       access_token: this.jwtService.generateToken(payload, 'auth'),
     };
@@ -63,10 +65,10 @@ export class AuthService {
   async refresh(refreshToken: string): Promise<LoginResponseDto> {
     const tokens = this.jwtService.refreshToken(refreshToken);
     const payload = this.jwtService.getPayload(refreshToken, 'refresh') as {
-      sub: number;
+      sub: string;
       email: string;
     };
-    const user = await this.validateUser(payload.sub);
+    const user = await this.validateUser(Number(payload.sub));
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken || refreshToken,
