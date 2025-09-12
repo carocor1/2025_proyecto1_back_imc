@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { UsersModule } from './users.module';
-import { User } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
@@ -19,7 +18,7 @@ describe('UsersModule (integration)', () => {
     app.useGlobalPipes(
       new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
     );
-    service = moduleFixture.get<UsersService>(UsersService); 
+    service = moduleFixture.get<UsersService>(UsersService);
     await app.init();
   });
 
@@ -38,7 +37,6 @@ describe('UsersModule (integration)', () => {
     expect(controller).toBeDefined();
     expect(service).toBeDefined();
   });
-  
 
   it('POST /users crea un usuario', async () => {
     const userDto = { nombre: 'Alejo', email: 'alejo@gmail.com' };

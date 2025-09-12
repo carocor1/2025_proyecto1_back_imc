@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
-import { UsuarioRepository } from './repositories/usuario.repository';
+import { UsuarioRepository } from './repositories/users.repository';
 import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 import { User } from './entities/user.entity';
 
 const userMock: User = {
   id: 1,
-  nombre: "Alejo",
-  email: "alejo@gmail.com",
-  contraseña: "contraseña123",
+  nombre: 'Alejo',
+  email: 'alejo@gmail.com',
+  contraseña: 'contraseña123',
   imcHistorial: [] as ImcHistorial[],
 };
 
@@ -40,7 +40,11 @@ describe('UsersService', () => {
   });
 
   it('create should call repository and return user', async () => {
-    const dto = { nombre: "Alejo", email: "alejo@gmail.com", contraseña: "contraseña123" };
+    const dto = {
+      nombre: 'Alejo',
+      email: 'alejo@gmail.com',
+      contraseña: 'contraseña123',
+    };
     const result = await service.create(dto as any);
     expect(repo.create).toHaveBeenCalledWith(dto);
     expect(result).toEqual(userMock);
@@ -53,7 +57,7 @@ describe('UsersService', () => {
   });
 
   it('update should call repository.update and repository.findOne', async () => {
-    const dto = { nombre: "Nuevo" };
+    const dto = { nombre: 'Nuevo' };
     const result = await service.update(1, dto as any);
     expect(repo.update).toHaveBeenCalledWith(1, dto);
     expect(repo.findOne).toHaveBeenCalledWith(1);
