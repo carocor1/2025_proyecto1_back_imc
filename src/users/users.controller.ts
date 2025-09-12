@@ -1,40 +1,55 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Body, Patch, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { RespuestaUserDto } from './dto/respuesta-user.dto';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBody,
-  ApiParam,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
+import { AuthGuard, RequestWithUser } from 'src/middleware/auth.middleware';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Obtener un usuario por ID' })
-  @ApiResponse({ status: 200, description: 'Usuario encontrado', type: User })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
-  @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
-  async findOne(@Param('id') id: number): Promise<User | null> {
-    return await this.usersService.findOne(id);
+  @UseGuards(AuthGuard)
+  @Get()
+  @ApiBearerAuth('Authorization')
+  @ApiOperation({
+    summary: 'Obtener el perfil del usuario autenticado',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil del usuario obtenido correctamente',
+    type: RespuestaUserDto,
+  })
+  @ApiResponse({ status: 401, description: 'No autorizado' })
+  async findMe(@Req() request: RequestWithUser): Promise<RespuestaUserDto> {
+    return await this.usersService.findMe(request.user.id);
   }
 
-  @Patch(':id')
-  @ApiOperation({ summary: 'Actualizar un usuario por ID' })
-  @ApiResponse({ status: 200, description: 'Usuario actualizado', type: User })
-  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  @UseGuards(AuthGuard)
+  @Patch()
+  @ApiBearerAuth('Authorization')
+  @ApiOperation({
+    summary: 'Actualizar el perfil del usuario autenticado',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil del usuario actualizado correctamente',
+    type: RespuestaUserDto,
+  })
+  @ApiResponse({ status: 401, description: 'No autorizado' })
+  @ApiResponse({ status: 400, description: 'Datos inválidos' })
   @ApiBody({ type: UpdateUserDto })
-  @ApiParam({ name: 'id', type: Number, description: 'ID del usuario' })
   async update(
-    @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User | null> {
-    return await this.usersService.update(id, updateUserDto);
+    @Req() request: RequestWithUser,
+  ): Promise<RespuestaUserDto> {
+    return await this.usersService.update(request.user.id, updateUserDto);
   }
 }

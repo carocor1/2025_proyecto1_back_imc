@@ -5,8 +5,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { User } from 'src/users/entities/user.entity';
 import { JwtService } from 'src/jwt/jwt.service';
+import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 
 export interface RequestWithUser extends Request {
@@ -31,19 +31,18 @@ export class AuthGuard implements CanActivate {
       if (!payload) {
         throw new UnauthorizedException('Token inválido');
       }
-      if (!payload.email) {
+      if (!payload.sub) {
         throw new UnauthorizedException(
-          'El payload del token no contiene el email',
+          'El payload del token no contiene el ID del usuario',
         );
       }
-      const user = await this.userService.findByEmail(payload.email);
+      const user = await this.userService.findOne(payload.sub);
       if (!user) {
         throw new UnauthorizedException('Usuario no encontrado');
       }
       request.user = user;
       return true;
     } catch (error) {
-      console.error('Error en AuthGuard:', error);
       throw new UnauthorizedException('No autorizado');
     }
   }

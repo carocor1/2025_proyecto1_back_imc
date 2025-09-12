@@ -7,30 +7,17 @@ export class JwtService {
   constructor(private readonly configService: ConfigService) {}
 
   generateToken(
-    payload: { email: string },
+    payload: { email: string; sub: number },
     type: 'refresh' | 'auth' = 'auth', //Es refresh o auth, y si es indefinido asume que es auth
   ): string {
-    const secret = this.configService.get<string>(
-      type === 'auth' ? 'JWT_AUTH_SECRET' : 'JWT_REFRESH_SECRET',
-    );
-    const expiresIn = this.configService.get<string>(
-      type === 'auth' ? 'JWT_AUTH_EXPIRES_IN' : 'JWT_REFRESH_EXPIRES_IN',
-    );
-    if (!secret || !expiresIn) {
-      throw new Error(`Missing JWT configuration for ${type} token`);
-    }
+    const { secret, expiresIn } = this.getJwtConfig(type);
     return sign(payload, secret, { expiresIn });
   }
 
   refreshToken(refreshToken: string) {
     try {
-      const refreshSecret =
-        this.configService.get<string>('JWT_REFRESH_SECRET');
-      if (!refreshSecret) {
-        throw new Error('Missing JWT_REFRESH_SECRET');
-      }
-
-      const payload = verify(refreshToken, refreshSecret) as Payload;
+      const { secret } = this.getJwtConfig('refresh');
+      const payload = verify(refreshToken, secret) as Payload;
       const currentTime = Math.floor(Date.now() / 1000);
       const timeToExpire = (payload.exp - currentTime) / 60;
 
@@ -38,13 +25,18 @@ export class JwtService {
         return {
           accessToken: this.generateToken({
             email: payload.email,
+            sub: payload.sub,
           }),
-          refreshToken: this.generateToken({ email: payload.email }, 'refresh'),
+          refreshToken: this.generateToken(
+            { email: payload.email, sub: payload.sub },
+            'refresh',
+          ),
         };
       }
       return {
         accessToken: this.generateToken({
           email: payload.email,
+          sub: payload.sub,
         }),
       };
     } catch (error) {
@@ -53,12 +45,20 @@ export class JwtService {
   }
 
   getPayload(token: string, type: 'refresh' | 'auth' = 'auth'): Payload {
+    const { secret } = this.getJwtConfig(type);
+    return verify(token, secret) as Payload;
+  }
+
+  private getJwtConfig(type: 'refresh' | 'auth') {
     const secret = this.configService.get<string>(
       type === 'auth' ? 'JWT_AUTH_SECRET' : 'JWT_REFRESH_SECRET',
+    );
+    const expiresIn = this.configService.get<string>(
+      type === 'auth' ? 'JWT_AUTH_EXPIRES_IN' : 'JWT_REFRESH_EXPIRES_IN',
     );
     if (!secret) {
       throw new Error(`Missing JWT ${type} secret`);
     }
-    return verify(token, secret) as Payload;
+    return { secret, expiresIn };
   }
 }

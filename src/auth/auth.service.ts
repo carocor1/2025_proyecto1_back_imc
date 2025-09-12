@@ -9,6 +9,9 @@ import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt'; // Importa bcrypt
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginResponseDto } from 'src/users/dto/login-response.dto';
+import { User } from 'src/users/entities/user.entity';
+import { RespuestaUserDto } from 'src/users/dto/respuesta-user.dto';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -17,8 +20,6 @@ export class AuthService {
   ) {}
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user = await this.userService.findByEmail(loginDto.email);
-    if (!user) throw new UnauthorizedException('Usuario no encontrado');
-
     const isPasswordValid = bcrypt.compareSync(
       loginDto.contraseña,
       user.contraseña,
@@ -26,7 +27,7 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Contraseña incorrecta');
 
-    const payload = { email: user.email };
+    const payload = { email: user.email, sub: user.id };
 
     return {
       accessToken: this.jwtService.generateToken(payload, 'auth'),
@@ -53,7 +54,7 @@ export class AuthService {
       ...createUserDto,
       contraseña: hashedPassword,
     });
-    const payload = { email: user.email };
+    const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.generateToken(payload, 'auth'),
     };
@@ -63,12 +64,10 @@ export class AuthService {
   async refresh(refreshToken: string): Promise<LoginResponseDto> {
     const tokens = this.jwtService.refreshToken(refreshToken);
     const payload = this.jwtService.getPayload(refreshToken, 'refresh') as {
+      sub: number;
       email: string;
     };
-    const user = await this.userService.findByEmail(payload.email);
-    if (!user) {
-      throw new UnauthorizedException('Usuario no encontrado');
-    }
+    const user = await this.validateUser(payload.sub);
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken || refreshToken,
@@ -78,5 +77,11 @@ export class AuthService {
         nombre: user.nombre,
       },
     };
+  }
+
+  private async validateUser(id: number): Promise<User> {
+    const user = await this.userService.findOne(id);
+    if (!user) throw new UnauthorizedException('Usuario no encontrado');
+    return user;
   }
 }

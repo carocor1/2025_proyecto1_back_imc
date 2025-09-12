@@ -28,7 +28,8 @@ export class User {
 
   @ApiProperty({
     example: '123456',
-    description: 'Contraseña del usuario (se recomienda encriptar antes de guardar)',
+    description:
+      'Contraseña del usuario (se recomienda encriptar antes de guardar)',
   })
   @Column()
   contraseña: string;
