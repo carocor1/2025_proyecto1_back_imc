@@ -3,10 +3,11 @@ import { ImcHistorial } from '../entities/imc-historial.entity';
 
 export interface IImcHistorialRepository {
   create(imcHistorialDto: CreateImcHistorialDto): Promise<ImcHistorial>;
-  findAll(): Promise<ImcHistorial[]>;
-  findAllPaginated(
+  findAllByUser(usuarioId: number): Promise<ImcHistorial[]>;
+  findAllPaginatedByUser(
     page: number,
     limit: number,
+    usuarioId: number,
   ): Promise<{
     historiales: ImcHistorial[];
     total: number;

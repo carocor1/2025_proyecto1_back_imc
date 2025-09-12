@@ -1,4 +1,5 @@
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
+
 import {
   Column,
   CreateDateColumn,
@@ -23,10 +24,10 @@ export class ImcHistorial {
 
   @Column()
   categoria: string;
-  /*
+
   @ManyToOne(() => User, (user) => user.imcHistorial)
   usuario: User;
-*/
-  @CreateDateColumn({ type: 'timestamp' })
+
+  @CreateDateColumn()
   fechaHora: Date;
 }
