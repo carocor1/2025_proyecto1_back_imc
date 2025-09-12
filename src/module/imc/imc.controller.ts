@@ -3,7 +3,7 @@ import { ImcService } from './imc.service';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ImcResponseDTO } from './dto/respuesta-imc-dto';
-import { AuthGuard, RequestWithUser } from 'src/middleware/auth.middleware';
+import { AuthGuard, RequestWithUser } from '../../middleware/auth.middleware';
 
 @ApiTags('IMC')
 @Controller('imc')

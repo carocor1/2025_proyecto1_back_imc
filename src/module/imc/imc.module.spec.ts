@@ -5,26 +5,50 @@ import { ImcService } from './imc.service';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
+import { ImcHistorial } from '../../imc-historial/entities/imc-historial.entity';
+import { User } from '../../users/entities/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 describe('ImcModule (integration)', () => {
   let app: INestApplication;
   let service: ImcService;
 
   beforeEach(async () => {
+    // variables de entorno de prueba
+    process.env.JWT_AUTH_SECRET = 'testsecret';
+    process.env.JWT_AUTH_EXPIRES_IN = '1h';
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ImcModule],
+      imports: [
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRoot({
+          type: 'sqlite',
+          database: ':memory:',
+          entities: [ImcHistorial, User],
+          synchronize: true,
+        }),
+        JwtModule.register({
+          secret: process.env.JWT_AUTH_SECRET,
+          signOptions: { expiresIn: process.env.JWT_AUTH_EXPIRES_IN },
+        }),
+        ImcModule,
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(
       new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
     );
-    service = moduleFixture.get<ImcService>(ImcService); // Obtener la instancia del servicio
+    service = moduleFixture.get<ImcService>(ImcService);
     await app.init();
   });
 
   afterEach(async () => {
-    await app.close();
+    if (app) {
+      await app.close();
+    }
   });
 
   it('should be defined', async () => {
@@ -47,7 +71,7 @@ describe('ImcModule (integration)', () => {
       .expect(201);
 
     expect(response.body).toEqual({
-      imc: 22.86, // 70 / (1.75 * 1.75) ≈ 22.86
+      imc: 22.86,
       categoria: 'Normal',
     });
   });
