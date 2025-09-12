@@ -18,10 +18,7 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     const serviceMock = {
-      create: jest.fn().mockResolvedValue(userMock),
-      findOne: jest.fn().mockResolvedValue(userMock),
-      update: jest.fn().mockResolvedValue(userMock),
-      findByEmail: jest.fn().mockResolvedValue(userMock),
+
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -35,20 +32,27 @@ describe('UsersController', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-  
-  it('findOne should call service and return user', async () => {
-    const result = await controller.findOne(1);
-    expect(service.findOne).toHaveBeenCalledWith(1);
-    expect(result).toEqual(userMock);
+    it('should be defined', () => {
+      expect(controller).toBeDefined();
+    });
+
+
+  describe('findMe', () => {
+    it('debería devolver el usuario autenticado', async () => {
+      const req = { user: { id: 1 } } as any;
+      const result = await controller.findMe(req);
+      expect(service.findMe).toHaveBeenCalledWith(1);
+      expect(result).toEqual(userMock);
+    });
   });
 
-  it('update should call service and return user', async () => {
-    const dto = { nombre: "Nuevo" };
-    const result = await controller.update(1, dto as any);
-    expect(service.update).toHaveBeenCalledWith(1, dto);
-    expect(result).toEqual(userMock);
+  describe('update', () => {
+    it('debería actualizar y devolver el usuario', async () => {
+      const req = { user: { id: 1 } } as any;
+      const updateUserDto = { nombre: 'NuevoNombre' };
+      const result = await controller.update(updateUserDto, req);
+      expect(service.update).toHaveBeenCalledWith(1, updateUserDto);
+      expect(result).toEqual(userMock);
+    });
   });
 });
