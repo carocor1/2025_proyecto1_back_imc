@@ -6,7 +6,7 @@ import {
 import { JwtService } from 'src/jwt/jwt.service';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { UsersService } from 'src/users/users.service';
-import * as bcrypt from 'bcrypt'; // Importa bcrypt
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginResponseDto } from 'src/users/dto/login-response.dto';
 import { User } from 'src/users/entities/user.entity';
@@ -41,9 +41,7 @@ export class AuthService {
     };
   }
 
-  async register(
-    createUserDto: CreateUserDto,
-  ): Promise<{ access_token: string }> {
+  async register(createUserDto: CreateUserDto): Promise<LoginResponseDto> {
     const existingUser = await this.userService.findByEmail(
       createUserDto.email,
     );
@@ -57,7 +55,13 @@ export class AuthService {
     });
     const payload = { email: user.email, sub: String(user.id) };
     return {
-      access_token: this.jwtService.generateToken(payload, 'auth'),
+      accessToken: this.jwtService.generateToken(payload, 'auth'),
+      refreshToken: this.jwtService.generateToken(payload, 'refresh'),
+      user: {
+        id: user.id,
+        email: user.email,
+        nombre: user.nombre,
+      },
     };
   }
 

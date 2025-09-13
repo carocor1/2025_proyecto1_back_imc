@@ -25,7 +25,7 @@ export class AuthController {
   @ApiBody({ type: CreateUserDto })
   async register(
     @Body() createUserDto: CreateUserDto,
-  ): Promise<{ access_token: string }> {
+  ): Promise<LoginResponseDto> {
     return await this.authService.register(createUserDto);
   }
 
