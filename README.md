@@ -28,7 +28,7 @@ Cómo desplegar la aplicación
 
 ### Backend
 
-*   **Tecnologías**: Node.js, Express
+*   **Tecnologías**: Node.js, Nest.js
     
 *   **Plataforma**: Render
     
@@ -45,9 +45,9 @@ Cómo desplegar la aplicación
     
 4.  Definí los comandos de construcción y arranque:
     
-    *   npm installEste comando instala las dependencias listadas en package.json y crea la carpeta node\_modules.
+    *   npm install Este comando instala las dependencias listadas en package.json y crea la carpeta node\_modules.
         
-    *   npm run start:prodEste comando ejecuta la versión optimizada de la aplicación para producción.
+    *   npm run start:prod Este comando ejecuta la versión optimizada de la aplicación para producción.
         
 5.  Render genera una URL pública para el backend: https://proyecto-1-backend.onrender.com.
     
@@ -81,7 +81,7 @@ Cómo desplegar la aplicación
     
 6.  Cada git push a la rama principal actualizará el despliegue automáticamente.
     
-7.  Actualizá la variable API\_URL en el frontend (en .env o en el código) para que apunte a la URL del backend: https://proyecto-1-backend.onrender.com/imc/calcular.
+7.  Actualizár la solicitud del frontend para que apunte a la URL del backend: https://proyecto-1-backend.onrender.com/imc/calcular.
     
 
 Cómo trabajar con Git
@@ -113,8 +113,6 @@ Problemas comunes y cómo solucionarlos
 *   **Solución**:
     
     *   Confirmá la URL del backend en Render: https://proyecto-1-backend.onrender.com/imc/calcular.
-        
-    *   Actualizá la variable API\_URL en el archivo .env del frontend o en el código.
         
     *   Volvé a desplegar el frontend en Vercel con git push.
         
