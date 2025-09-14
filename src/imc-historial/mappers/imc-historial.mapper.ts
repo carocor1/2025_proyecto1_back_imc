@@ -12,6 +12,7 @@ export class ImcHistorialMapper {
       imc: imcHistorial.imc,
       categoria: imcHistorial.categoria,
       fechaHora: imcHistorial.fechaHora,
+      id: imcHistorial.id,
     };
   }
 

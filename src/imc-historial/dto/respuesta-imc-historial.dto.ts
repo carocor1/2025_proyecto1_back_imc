@@ -8,6 +8,14 @@ export class ImcHistorialResponseDTO {
   altura: number;
 
   @ApiProperty({
+    example: 1,
+    description: 'Identificador único del cálculo de IMC en el historial',
+    required: true,
+    type: Number,
+  })
+  id: number;
+
+  @ApiProperty({
     example: 70,
     description: 'Peso de la persona en kilogramos',
   })
