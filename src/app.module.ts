@@ -26,20 +26,22 @@ import { AuthModule } from './auth/auth.module';
       entities: [User, ImcHistorial],
       synchronize: true,
       ssl: {
-        ca: fs.readFileSync(
-          path.resolve(
-            __dirname,
-            '..',
-            '..',
-            '2025_proyecto1_back_imc',
-            'src',
-            'config',
-            'ca.pem',
-          ),
-        ),
-        rejectUnauthorized: true, // Requerido para verificar el certificado
+        ca: process.env.CA_CERT
+          ? Buffer.from(process.env.CA_CERT, 'utf-8') // usa la variable de entorno en Render
+          : fs.readFileSync(
+              path.resolve(
+                __dirname,
+                '..',
+                '..',
+                '2025_proyecto1_back_imc',
+                'src',
+                'config',
+                'ca.pem', // fallback local
+              ),
+            ),
+        rejectUnauthorized: true,
       },
-      timezone: '+03:00', //para que la app interprete las fechas en horario argentino.
+      timezone: '+03:00',
     }),
     ImcModule,
     ImcHistorialModule,
