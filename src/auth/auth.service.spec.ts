@@ -86,7 +86,7 @@ describe('AuthService', () => {
       (bcrypt.hashSync as jest.Mock).mockReturnValue('hashed');
       usersService.create!.mockResolvedValue({ ...userMock, contraseña: 'hashed' });
       const result = await service.register({ email: 'test@mail.com', contraseña: '123', nombre: 'Test' });
-      expect(result).toHaveProperty('access_token');
+      expect(result).toHaveProperty('accessToken');
       expect(usersService.create).toHaveBeenCalled();
     });
   });

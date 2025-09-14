@@ -3,6 +3,9 @@ import { ImcController } from './imc.controller';
 import { ImcService } from './imc.service';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from '../../users/users.service';
+import { AuthGuard} from '../../middleware/auth.middleware';
 
 describe('ImcController', () => {
   let controller: ImcController;
@@ -18,8 +21,24 @@ describe('ImcController', () => {
             calcularImc: jest.fn(),
           },
         },
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn().mockReturnValue('mocked-token'),
+            getPayload: jest.fn().mockReturnValue({ sub: '1', email: 'test@mail.com' }),
+          },
+        },
+        {
+          provide: UsersService,
+          useValue: {
+            findOne: jest.fn().mockResolvedValue({ id: 1, email: 'test@mail.com', nombre: 'Test' }),
+          },
+        },
       ],
-    }).compile();
+    })
+      .overrideGuard(AuthGuard) // Sobrescribe tu AuthGuard personalizado
+      .useValue({ canActivate: () => true }) // Mock para permitir acceso
+      .compile();
 
     controller = module.get<ImcController>(ImcController);
     service = module.get<ImcService>(ImcService);
@@ -31,8 +50,6 @@ describe('ImcController', () => {
 
   it('should throw BadRequestException for invalid input', async () => {
     const invalidDto: CalcularImcDto = { altura: -1, peso: 70 };
-
-    // Aplicar ValidationPipe manualmente en la prueba
     const validationPipe = new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -45,12 +62,11 @@ describe('ImcController', () => {
       }),
     ).rejects.toThrow(BadRequestException);
 
-    // Verificar que el servicio no se llama porque la validación falla antes
     expect(service.calcularImc).not.toHaveBeenCalled();
   });
 
   it('should throw BadRequestException for non-numeric altura', async () => {
-    const dtoInvalido = { altura: 'esEscrita!!', peso: 70 }; // Altura no numérica
+    const dtoInvalido = { altura: 'esEscrita!!', peso: 70 };
     const validationPipe = new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -110,7 +126,7 @@ describe('ImcController', () => {
   });
 
   it('should throw BadRequestException for null altura or peso', async () => {
-    const invalidDto = { altura: null, peso: 70 }; // Null en altura
+    const invalidDto = { altura: null, peso: 70 };
     const validationPipe = new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,

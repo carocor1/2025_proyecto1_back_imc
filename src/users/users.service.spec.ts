@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { UsuarioRepository } from './repositories/users.repository';
 import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 import { User } from './entities/user.entity';
+import { UsersMapper } from './mappers/users-mapper';
 
 const userMock: User = {
   id: 1,
@@ -23,16 +24,20 @@ describe('UsersService', () => {
       update: jest.fn().mockResolvedValue(userMock),
       findByEmail: jest.fn().mockResolvedValue(userMock),
     };
+    const mapperMock = {
+      toDto: jest.fn().mockReturnValue({ id: 1, email: 'alejo@gmail.com', nombre: 'Alejo' }),
+    };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        { provide: UsuarioRepository, useValue: repoMock },
+        { provide: 'IUsuarioRepository', useValue: repoMock }, // Usa el token correcto
+        { provide: UsersMapper, useValue: mapperMock }, // Agrega mock de UsersMapper
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    repo = module.get(UsuarioRepository) as jest.Mocked<UsuarioRepository>;
+    repo = module.get('IUsuarioRepository') as jest.Mocked<UsuarioRepository>;
   });
 
   it('should be defined', () => {
