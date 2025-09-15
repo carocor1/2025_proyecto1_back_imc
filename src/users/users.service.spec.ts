@@ -4,6 +4,7 @@ import { UsuarioRepository } from './repositories/users.repository';
 import { ImcHistorial } from '../imc-historial/entities/imc-historial.entity';
 import { User } from './entities/user.entity';
 import { UsersMapper } from './mappers/users-mapper';
+import { RespuestaUserDto } from './dto/respuesta-user.dto';
 
 const userMock: User = {
   id: 1,
@@ -12,7 +13,6 @@ const userMock: User = {
   contraseña: 'contraseña123',
   imcHistorial: [] as ImcHistorial[],
 };
-
 describe('UsersService', () => {
   let service: UsersService;
   let repo: jest.Mocked<UsuarioRepository>;
@@ -25,7 +25,9 @@ describe('UsersService', () => {
       findByEmail: jest.fn().mockResolvedValue(userMock),
     };
     const mapperMock = {
-      toDto: jest.fn().mockReturnValue({ id: 1, email: 'alejo@gmail.com', nombre: 'Alejo' }),
+      toResponseDto: jest
+        .fn()
+        .mockReturnValue({ id: 1, email: 'alejo@gmail.com', nombre: 'Alejo' }),
     };
 
     const module: TestingModule = await Test.createTestingModule({
