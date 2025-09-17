@@ -17,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USER,
@@ -41,7 +41,6 @@ import { AuthModule } from './auth/auth.module';
             ),
         rejectUnauthorized: true,
       },
-      timezone: '+03:00',
     }),
     ImcModule,
     ImcHistorialModule,
