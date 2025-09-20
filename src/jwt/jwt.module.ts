@@ -9,7 +9,7 @@ import { JwtService } from './jwt.service';
       signOptions: { expiresIn: '15m' }, // Configuración de expiración para token
     }),
   ],
-  providers: [JwtService], 
-  exports: [JwtService, NestJwtModule],
+  providers: [JwtService],
+  exports: [JwtService],
 })
 export class JwtModule {}

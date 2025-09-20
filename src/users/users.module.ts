@@ -18,6 +18,6 @@ import { AuthModule } from '../auth/auth.module';
     },
     UsersMapper,
   ],
-  exports: [UsersService, UsersModule],
+  exports: [UsersService],
 })
 export class UsersModule {}

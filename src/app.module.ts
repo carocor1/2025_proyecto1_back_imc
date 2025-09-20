@@ -12,6 +12,7 @@ import { User } from './users/entities/user.entity';
 import { ImcHistorial } from './imc-historial/entities/imc-historial.entity';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
+import { MetabaseModule } from './metabase/metabase.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [User, ImcHistorial],
-      synchronize: true,
+      synchronize: false,
       ssl: {
         ca: process.env.CA_CERT
           ? Buffer.from(process.env.CA_CERT, 'utf-8') // usa la variable de entorno en Render
@@ -47,6 +48,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     JwtModule,
     AuthModule,
+    MetabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,7 +2,7 @@ import { ImcHistorial } from '../../imc-historial/entities/imc-historial.entity'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity()
+@Entity('users')
 export class User {
   @ApiProperty({
     example: 1,
@@ -31,7 +31,7 @@ export class User {
     description:
       'Contraseña del usuario (se recomienda encriptar antes de guardar)',
   })
-  @Column()
+  @Column({ name: 'contrasenia' })
   contraseña: string;
 
   @ApiProperty({
