@@ -1,12 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CalcularImcDto } from './dto/calcular-imc-dto';
 import { ImcResponseDTO } from './dto/respuesta-imc-dto';
 import { CreateImcHistorialDto } from '../../imc-historial/dto/create-imc-historial.dto';
 import { ImcHistorialService } from '../../imc-historial/imc-historial.service';
+import { ImcCategoriaStrategy } from './strategies/imc-categoria.strategy';
 
 @Injectable()
 export class ImcService {
-  constructor(private readonly imcHistorialService: ImcHistorialService) {}
+  constructor(
+    private readonly imcHistorialService: ImcHistorialService,
+    @Inject('CATEGORIA_STRATEGIES')
+    private categoriaStrategies: ImcCategoriaStrategy[],
+  ) {}
 
   async calcularImc(
     data: CalcularImcDto,
@@ -15,18 +20,15 @@ export class ImcService {
     const { altura, peso } = data;
     const imc = peso / (altura * altura);
     const imcRedondeado = Math.round(imc * 100) / 100; // Redondeo a 2 decimales
-
-    let categoria: string;
-    if (imc < 18.5) {
-      categoria = 'Bajo peso';
-    } else if (imc < 25) {
-      categoria = 'Normal';
-    } else if (imc < 30) {
-      categoria = 'Sobrepeso';
-    } else {
-      categoria = 'Obeso';
+    //Determina la categoria de acuerdo al imcRedondeado. Verifica cual de ellas devuelve true.
+    const categoria = this.categoriaStrategies
+      .find((estrategia) => estrategia.coincide(imcRedondeado))
+      ?.getCategoria();
+    if (!categoria) {
+      throw new BadRequestException(
+        'No se encontró una categoría para el IMC calculado',
+      );
     }
-
     const historialDto: CreateImcHistorialDto = {
       altura: data.altura,
       peso: data.peso,
