@@ -48,7 +48,8 @@ export class AuthService {
     if (existingUser) {
       throw new ConflictException('El usuario ya existe');
     }
-    const hashedPassword = bcrypt.hashSync(createUserDto.contraseña, 10);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = bcrypt.hashSync(createUserDto.contraseña, salt);
     const user = await this.userService.create({
       ...createUserDto,
       contraseña: hashedPassword,

@@ -1,4 +1,12 @@
-import { Controller, Get, Body, Patch, UseGuards, Req, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  UseGuards,
+  Req,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RespuestaUserDto } from './dto/respuesta-user.dto';
@@ -10,22 +18,8 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { AuthGuard, RequestWithUser } from '../middleware/auth.middleware';
-import { IsEmail, IsString } from 'class-validator';
-
-// DTOs para recuperación y reseteo de contraseña
-class ForgotPasswordDto {
-  @IsEmail()
-  email: string;
-}
-
-class ResetPasswordDto {
-  @IsString()
-  token: string;
-
-  @IsString()
-  newPassword: string;
-}
-
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
@@ -78,9 +72,8 @@ export class UsersController {
   })
   @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
   @ApiBody({ type: ForgotPasswordDto })
-  async forgotPassword(@Body() dto: ForgotPasswordDto) {
+  async forgotPassword(@Body() dto: ForgotPasswordDto): Promise<void> {
     await this.usersService.forgotPassword(dto.email);
-    return { message: 'Email de recuperación enviado' };
   }
 
   @Post('reset-password')
@@ -93,8 +86,7 @@ export class UsersController {
   })
   @ApiResponse({ status: 400, description: 'Token inválido o expirado' })
   @ApiBody({ type: ResetPasswordDto })
-  async resetPassword(@Body() dto: ResetPasswordDto) {
+  async resetPassword(@Body() dto: ResetPasswordDto): Promise<void> {
     await this.usersService.resetPassword(dto.token, dto.newPassword);
-    return { message: 'Contraseña actualizada' };
   }
 }

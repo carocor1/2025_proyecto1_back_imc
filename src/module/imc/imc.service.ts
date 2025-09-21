@@ -30,8 +30,8 @@ export class ImcService {
       );
     }
     const historialDto: CreateImcHistorialDto = {
-      altura: data.altura,
-      peso: data.peso,
+      altura: altura,
+      peso: peso,
       imc: imcRedondeado,
       categoria,
       usuarioId,

@@ -51,4 +51,52 @@ export class UsuarioRepository implements IUsuarioRepository {
     }
   }
 
+  async guardarTokenReset(
+    email: string,
+    token: string,
+    expiration: Date,
+  ): Promise<void> {
+    try {
+      const user = await this.findByEmail(email);
+      if (user) {
+        user.passwordResetToken = token;
+        ((user.passwordResetExpiration = expiration),
+          await this.userRepository.save(user));
+      }
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error al actualizar el usuario con email ${email}. Error:` + error,
+      );
+    }
+  }
+
+  async findOneByResetToken(token: string): Promise<User | null> {
+    try {
+      return await this.userRepository.findOne({
+        where: { passwordResetToken: token },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error al buscar el usuario con el token de reset ${token}. Error:` +
+          error,
+      );
+    }
+  }
+
+  async updatePassword(id: number, newPassword: string): Promise<void> {
+    try {
+      const user = await this.findOne(id);
+      if (user) {
+        user.contraseña = newPassword;
+        user.passwordResetToken = null;
+        user.passwordResetExpiration = null;
+        await this.userRepository.save(user);
+      }
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error al actualizar la contraseña del usuario con ID ${id}. Error:` +
+          error,
+      );
+    }
+  }
 }

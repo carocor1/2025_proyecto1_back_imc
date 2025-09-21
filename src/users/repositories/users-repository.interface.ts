@@ -7,5 +7,11 @@ export interface IUsuarioRepository {
   findByEmail(email: string): Promise<User | null>;
   create(userData: CreateUserDto): Promise<User>;
   update(id: number, updateData: Partial<User>): Promise<UpdateResult>;
-  
+  guardarTokenReset(
+    email: string,
+    token: string,
+    expiration: Date,
+  ): Promise<void>;
+  findOneByResetToken(token: string): Promise<User | null>;
+  updatePassword(id: number, newPassword: string): Promise<void>;
 }

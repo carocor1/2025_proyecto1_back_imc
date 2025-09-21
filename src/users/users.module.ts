@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuarioRepository } from './repositories/users.repository';
 import { UsersMapper } from './mappers/users-mapper';
 import { AuthModule } from '../auth/auth.module';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), AuthModule],
+  imports: [TypeOrmModule.forFeature([User]), AuthModule, MailModule],
   controllers: [UsersController],
   providers: [
     UsersService,

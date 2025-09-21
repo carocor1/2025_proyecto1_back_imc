@@ -14,6 +14,7 @@ import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { MetabaseModule } from './metabase/metabase.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -44,26 +45,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
         rejectUnauthorized: true,
       },
     }),
-    MailerModule.forRoot({
-      transport: {
-        host: process.env.MAIL_HOST,
-        port: Number(process.env.MAIL_PORT),
-        secure: false,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
-        },
-      },
-      defaults: {
-        from: `"Calculadora IMC" <${process.env.MAIL_USER}>`,
-      },
-    }),
     ImcModule,
     ImcHistorialModule,
     UsersModule,
     JwtModule,
     AuthModule,
     MetabaseModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

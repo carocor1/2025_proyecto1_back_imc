@@ -15,8 +15,8 @@ import { UsersMapper } from './mappers/users-mapper';
 import { RespuestaUserDto } from './dto/respuesta-user.dto';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
-import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UsersService {
@@ -24,7 +24,7 @@ export class UsersService {
     @Inject('IUsuarioRepository')
     private readonly usuarioRepository: IUsuarioRepository,
     private readonly usuarioMapper: UsersMapper,
-    private readonly mailerService: MailerService,
+    private readonly mailService: MailService,
     private readonly configService: ConfigService,
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
@@ -84,37 +84,28 @@ export class UsersService {
       throw new NotFoundException('Usuario no encontrado');
     }
     const token = crypto.randomBytes(32).toString('hex');
-    user.passwordResetToken = token;
-    user.passwordResetExpiration = new Date(Date.now() + 3600000); // 1 hora
-    await this.usuarioRepository.update(user.id, user);
-    const resetUrl = `${this.configService.get('FRONTEND_URL')}/reset-password?token=${token}`;
-    await this.mailerService.sendMail({
-      to: email,
-      subject: 'Recuperación de Contraseña - Calculadora IMC',
-      html: `<p>Hola,</p><p>Para resetear tu contraseña, haz click aquí: <a href="${resetUrl}">Resetear Contraseña</a></p><p>Este link expira en 1 hora.</p>`,
-    });
+    const expiration = new Date(Date.now() + 3600000); //1 hora.
+    await this.usuarioRepository.guardarTokenReset(email, token, expiration);
+    const resetUrl = `${this.configService.get(
+      'FRONTEND_URL',
+    )}/reset-password?token=${token}`;
+
+    await this.mailService.sendPasswordReset(email, user.nombre, resetUrl);
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
-    
-    const user = await this.userRepo.findOne({ where: { passwordResetToken: token } });
-    
-   
+    const user = await this.usuarioRepository.findOneByResetToken(token);
     if (!user) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+    if (
+      !user.passwordResetExpiration ||
+      user.passwordResetExpiration < new Date()
+    ) {
       throw new BadRequestException('Token inválido o expirado');
     }
-    if (!user.passwordResetToken || user.passwordResetToken !== token) {
-      throw new BadRequestException('Token inválido o expirado');
-    }
-    if (!user.passwordResetExpiration || user.passwordResetExpiration < new Date()) {
-      throw new BadRequestException('Token inválido o expirado');
-    }
-
     const salt = await bcrypt.genSalt();
-    user.contraseña = await bcrypt.hash(newPassword, salt);
-    
-    user.passwordResetToken = null;
-    user.passwordResetExpiration = null;
-    await this.userRepo.save(user);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    await this.usuarioRepository.updatePassword(user.id, hashedPassword);
   }
 }
