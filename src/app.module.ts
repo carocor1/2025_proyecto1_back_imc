@@ -13,6 +13,7 @@ import { ImcHistorial } from './imc-historial/entities/imc-historial.entity';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { MetabaseModule } from './metabase/metabase.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { MetabaseModule } from './metabase/metabase.module';
       synchronize: false,
       ssl: {
         ca: process.env.CA_CERT
-          ? Buffer.from(process.env.CA_CERT, 'utf-8') // usa la variable de entorno en Render
+          ? Buffer.from(process.env.CA_CERT, 'utf-8')
           : fs.readFileSync(
               path.resolve(
                 __dirname,
@@ -37,10 +38,24 @@ import { MetabaseModule } from './metabase/metabase.module';
                 '2025_proyecto1_back_imc',
                 'src',
                 'config',
-                'ca.pem', // fallback local
+                'ca.pem',
               ),
             ),
         rejectUnauthorized: true,
+      },
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.MAIL_HOST,
+        port: Number(process.env.MAIL_PORT),
+        secure: false,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+      },
+      defaults: {
+        from: `"Calculadora IMC" <${process.env.MAIL_USER}>`,
       },
     }),
     ImcModule,

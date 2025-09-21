@@ -7,4 +7,5 @@ export interface IUsuarioRepository {
   findByEmail(email: string): Promise<User | null>;
   create(userData: CreateUserDto): Promise<User>;
   update(id: number, updateData: Partial<User>): Promise<UpdateResult>;
+  
 }

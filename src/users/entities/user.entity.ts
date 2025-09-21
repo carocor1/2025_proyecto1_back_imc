@@ -41,4 +41,20 @@ export class User {
   })
   @OneToMany(() => ImcHistorial, (imcHistorial) => imcHistorial.usuario)
   imcHistorial: ImcHistorial[];
+
+@ApiProperty({
+  example: null,
+  description: 'Token para reset de contraseña (nullable)',
+  required: false,
+})
+@Column({ type: 'varchar', length: 255, nullable: true })
+passwordResetToken: string | null;
+
+@ApiProperty({
+  example: null,
+  description: 'Fecha de expiración del token de reset (nullable)',
+  required: false,
+})
+@Column({ type: 'timestamptz', nullable: true })
+passwordResetExpiration: Date | null;
 }
