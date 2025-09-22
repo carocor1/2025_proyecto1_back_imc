@@ -12,6 +12,8 @@ const userMock: User = {
   email: 'alejo@gmail.com',
   contraseña: 'contraseña123',
   imcHistorial: [] as ImcHistorial[],
+  passwordResetExpiration: new Date('2025-01-01'),
+  passwordResetToken: null,
 };
 describe('UsersService', () => {
   let service: UsersService;

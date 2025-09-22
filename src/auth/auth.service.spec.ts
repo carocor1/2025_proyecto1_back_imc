@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '../jwt/jwt.service';
 import { UnauthorizedException, ConflictException } from '@nestjs/common';
-
 jest.mock('bcrypt');
 
 describe('AuthService', () => {
@@ -18,6 +17,8 @@ describe('AuthService', () => {
     nombre: 'Test',
     contraseña: 'hashedPassword',
     imcHistorial: [],
+    passwordResetExpiration: new Date('2025-01-01'),
+    passwordResetToken: null,
   };
   // Configuración del módulo de pruebas
   beforeEach(async () => {

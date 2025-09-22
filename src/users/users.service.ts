@@ -16,7 +16,7 @@ import { RespuestaUserDto } from './dto/respuesta-user.dto';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UsersService {

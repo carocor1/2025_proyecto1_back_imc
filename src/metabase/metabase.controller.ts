@@ -1,5 +1,5 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard, RequestWithUser } from 'src/middleware/auth.middleware';
+import { AuthGuard, RequestWithUser } from '../middleware/auth.middleware';
 import { MetabaseService } from './metabase.service';
 
 @Controller('metabase')
