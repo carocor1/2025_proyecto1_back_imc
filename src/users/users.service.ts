@@ -75,7 +75,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.usuarioRepository.findByEmail(email);
+   return await this.usuarioRepository.findByEmail(email);
   }
 
   async forgotPassword(email: string): Promise<void> {
@@ -109,3 +109,4 @@ export class UsersService {
     await this.usuarioRepository.updatePassword(user.id, hashedPassword);
   }
 }
+ 
