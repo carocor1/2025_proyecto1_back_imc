@@ -15,6 +15,9 @@ import { AuthModule } from './auth/auth.module';
 import { MetabaseModule } from './metabase/metabase.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailModule } from './mail/mail.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserSchema } from './users/schemas/user.schema';
+import { ImcHistorialSchema } from './imc-historial/schemas/imc-historial.schema';
 
 @Module({
   imports: [
@@ -45,6 +48,11 @@ import { MailModule } from './mail/mail.module';
         rejectUnauthorized: true,
       },
     }),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017', { dbName: 'proyecto1' }),
+    MongooseModule.forFeature([
+      { name: 'UserDocument', schema: UserSchema },
+      { name: 'ImcHistorialDocument', schema: ImcHistorialSchema },
+    ]),
     ImcModule,
     ImcHistorialModule,
     UsersModule,
