@@ -17,6 +17,7 @@ import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import { MailService } from '../mail/mail.service';
+import { CounterService } from '../counters/counter.service';
 
 @Injectable()
 export class UsersService {
@@ -26,8 +27,9 @@ export class UsersService {
     private readonly usuarioMapper: UsersMapper,
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
-    @InjectRepository(User)
-    private readonly userRepo: Repository<User>,
+    private readonly counterService: CounterService,
+    //@InjectRepository(User)
+    //private readonly userRepo: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {

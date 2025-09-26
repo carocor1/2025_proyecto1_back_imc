@@ -1,22 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ImcModule } from './module/imc/imc.module';
 import { AppController } from './app.controller';
-import { ImcHistorialModule } from './imc-historial/imc-historial.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
 import * as fs from 'fs';
 import * as path from 'path';
+
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { ImcHistorial } from './imc-historial/entities/imc-historial.entity';
+
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserSchema } from './users/schemas/user.schema';
+import { ImcHistorialSchema } from './imc-historial/schemas/imc-historial.schema';
+
+import { UsersModule } from './users/users.module';
+import { ImcModule } from './module/imc/imc.module';
+import { ImcHistorialModule } from './imc-historial/imc-historial.module';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { MetabaseModule } from './metabase/metabase.module';
 import { MailModule } from './mail/mail.module';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './users/schemas/user.schema';
-import { ImcHistorialSchema } from './imc-historial/schemas/imc-historial.schema';
+import { CounterModule } from './counters/counter.module';
 
 @Module({
   imports: [
@@ -47,21 +51,21 @@ import { ImcHistorialSchema } from './imc-historial/schemas/imc-historial.schema
         rejectUnauthorized: true,
       },
     }),
-    MongooseModule.forRoot(
-      process.env.MONGO_URI || 'mongodb://localhost:27017',
-      { dbName: 'proyecto1' },
-    ),
+    MongooseModule.forRoot(process.env.MONGO_URI || 'mongodb://localhost:27017', {
+      dbName: 'proyecto1',
+    }),
     MongooseModule.forFeature([
-      { name: 'UserDocument', schema: UserSchema },
-      { name: 'ImcHistorialDocument', schema: ImcHistorialSchema },
+      { name: 'User', schema: UserSchema },
+      { name: 'ImcHistorial', schema: ImcHistorialSchema },
     ]),
+    UsersModule,
     ImcModule,
     ImcHistorialModule,
-    UsersModule,
     JwtModule,
     AuthModule,
     MetabaseModule,
     MailModule,
+    CounterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
