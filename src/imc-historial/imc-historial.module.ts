@@ -12,10 +12,12 @@ import { CounterModule } from 'src/counters/counter.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'ImcHistorial', schema: ImcHistorialSchema }]),
+    MongooseModule.forFeature([
+      { name: 'ImcHistorial', schema: ImcHistorialSchema },
+    ]),
     UsersModule,
     JwtModule,
-    CounterModule
+    CounterModule,
   ],
   controllers: [ImcHistorialController],
   providers: [

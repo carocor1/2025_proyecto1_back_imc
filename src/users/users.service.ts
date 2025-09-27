@@ -5,8 +5,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -17,7 +15,6 @@ import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import { MailService } from '../mail/mail.service';
-import { CounterService } from '../counters/counter.service';
 
 @Injectable()
 export class UsersService {
@@ -27,9 +24,6 @@ export class UsersService {
     private readonly usuarioMapper: UsersMapper,
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
-    private readonly counterService: CounterService,
-    //@InjectRepository(User)
-    //private readonly userRepo: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -77,7 +71,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-   return await this.usuarioRepository.findByEmail(email);
+    return await this.usuarioRepository.findByEmail(email);
   }
 
   async forgotPassword(email: string): Promise<void> {
@@ -111,4 +105,3 @@ export class UsersService {
     await this.usuarioRepository.updatePassword(user.id, hashedPassword);
   }
 }
- 

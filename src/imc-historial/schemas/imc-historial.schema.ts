@@ -9,7 +9,7 @@ export class ImcHistorialDocument {
   _id: number;
 
   @Prop({ type: Number, ref: 'users', required: true })
-  userId: number; 
+  userId: number;
 
   @Prop({ required: true })
   altura: number;
@@ -27,4 +27,5 @@ export class ImcHistorialDocument {
   fechaHora: Date;
 }
 
-export const ImcHistorialSchema = SchemaFactory.createForClass(ImcHistorialDocument);
+export const ImcHistorialSchema =
+  SchemaFactory.createForClass(ImcHistorialDocument);

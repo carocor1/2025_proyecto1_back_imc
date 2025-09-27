@@ -2,14 +2,21 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ImcHistorialService } from './imc-historial.service';
 import { CreateImcHistorialDto } from './dto/create-imc-historial.dto';
 import { ImcHistorialMapper } from './mappers/imc-historial.mapper';
-import { ImcHistorialRepository } from './repositories/historial.repository';
 
 describe('ImcHistorialService', () => {
   let service: ImcHistorialService;
   let repoMock: any;
   let mapperMock: any;
   // Mocks de datos - pueden ser ajustados según la estructura real
-  const imcHistorialEntityMock = { id: 1, altura: 1.7, peso: 70, imc: 24.2, categoria: 'Normal', usuario: { id: 1 }, fechaHora: new Date() };
+  const imcHistorialEntityMock = {
+    id: 1,
+    altura: 1.7,
+    peso: 70,
+    imc: 24.2,
+    categoria: 'Normal',
+    usuario: { id: 1 },
+    fechaHora: new Date(),
+  };
   const imcHistorialDtoMock: CreateImcHistorialDto = {
     altura: 1.7,
     peso: 70,
@@ -27,20 +34,33 @@ describe('ImcHistorialService', () => {
   repoMock = {
     create: jest.fn().mockResolvedValue(imcHistorialEntityMock),
     findAllByUser: jest.fn().mockResolvedValue([imcHistorialEntityMock]),
-    findAllPaginatedByUser: jest.fn().mockResolvedValue({ historiales: [imcHistorialEntityMock], total: 1, page: 1, lastPage: 1 }),
+    findAllPaginatedByUser: jest
+      .fn()
+      .mockResolvedValue({
+        historiales: [imcHistorialEntityMock],
+        total: 1,
+        page: 1,
+        lastPage: 1,
+      }),
   };
   mapperMock = {
     toResponseDto: jest.fn().mockReturnValue(responseDtoMock),
     toResponseDtos: jest.fn().mockReturnValue([responseDtoMock]),
-    toResponsePaginationDto: jest.fn().mockReturnValue({ historiales: [responseDtoMock], total: 1, page: 1, lastPage: 1 }),
+    toResponsePaginationDto: jest
+      .fn()
+      .mockReturnValue({
+        historiales: [responseDtoMock],
+        total: 1,
+        page: 1,
+        lastPage: 1,
+      }),
   };
   // Configuración del módulo de pruebas
   beforeEach(async () => {
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ImcHistorialService,
-        { provide: 'IImcHistorialRepository', useValue: repoMock }, 
+        { provide: 'IImcHistorialRepository', useValue: repoMock },
         { provide: ImcHistorialMapper, useValue: mapperMock },
       ],
     }).compile();
@@ -51,7 +71,7 @@ describe('ImcHistorialService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-  
+
   // Pruebas para cada método del servicio
   it('create debe llamar al repo y al mapper', async () => {
     const result = await service.create(imcHistorialDtoMock);

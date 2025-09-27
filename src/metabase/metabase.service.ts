@@ -14,10 +14,11 @@ export class MetabaseService {
 
     const jwt = require('jsonwebtoken');
     const payload = {
-      resource: { dashboard: 3 },
-      params: { user_id: userId.toString() },
+      resource: { dashboard: 10 },
+      params: { user_id: [userId] },
       exp: Math.round(Date.now() / 1000) + 10 * 60, // 10 minute expiration
     };
+    console.log('Payload for JWT:', payload);
     //genera un token con JWT cuyo payload contenga el id del usuario.
     const token = jwt.sign(payload, this.metabaseSecretKey);
     const signedUrl = `${this.metabaseUrl}/embed/dashboard/${token}#background=false&bordered=false&titled=false`;
