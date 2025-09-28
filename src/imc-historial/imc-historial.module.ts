@@ -8,7 +8,7 @@ import { ImcHistorialMapper } from './mappers/imc-historial.mapper';
 import { UsersModule } from '../users/users.module';
 import { AuthGuard } from '../middleware/auth.middleware';
 import { JwtModule } from '../jwt/jwt.module';
-import { CounterModule } from 'src/counters/counter.module';
+import { CounterModule } from '../counters/counter.module';
 
 @Module({
   imports: [

@@ -10,7 +10,7 @@ import { ImcHistorialDocument } from '../schemas/imc-historial.schema';
 import { ImcHistorialMapper } from '../mappers/imc-historial.mapper';
 import { ImcHistorial } from '../entities/imc-historial.entity';
 import { getModelToken } from '@nestjs/mongoose';
-import { CounterService } from 'src/counters/counter.service';
+import { CounterService } from '../counters/counter.service';
 
 @Injectable()
 export class ImcHistorialMongoRepository implements IImcHistorialRepository {
